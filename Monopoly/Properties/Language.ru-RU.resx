@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="bank" xml:space="preserve">
+    <value>Объявить банкротство</value>
+  </data>
+  <data name="bought" xml:space="preserve">
+    <value>{0} купил {1}</value>
+  </data>
+  <data name="buy" xml:space="preserve">
+    <value>Купить</value>
+  </data>
+  <data name="buystreet" xml:space="preserve">
+    <value>Улучшить</value>
+  </data>
+  <data name="chance" xml:space="preserve">
+    <value>Вы получаете карту шанса, если попадете сюда</value>
+  </data>
+  <data name="cheatdice" xml:space="preserve">
+    <value>{0} выбросил{1}</value>
+  </data>
+  <data name="cheatmove" xml:space="preserve">
+    <value>Передвинуть</value>
+  </data>
+  <data name="cheatplayer" xml:space="preserve">
+    <value>Сменить игрока</value>
+  </data>
+  <data name="community" xml:space="preserve">
+    <value>Вы получите общественную карту, если попадете сюда</value>
+  </data>
+  <data name="company" xml:space="preserve">
+    <value>{0}{1}Эта недвижимость в настоящее время принадлежит {2}{1}Купить ее стоит ${3}Если в собственности одна "коммунальная услуга", арендная плата в 4 раза больше суммы, указанной на кубиках {1}Если в собственности обе "коммунальные услуги", арендная плата в 10 раз больше суммы, указанной на кубиках. {1} Стоимость заложения составляет ${4}</value>
+  </data>
+  <data name="companypay" xml:space="preserve">
+    <value>{0} заплатил ${1} игроку {2}</value>
+  </data>
+  <data name="dice" xml:space="preserve">
+    <value>Выполнить ход</value>
+  </data>
+  <data name="downgrade" xml:space="preserve">
+    <value>{0} понизил{1}</value>
+  </data>
+  <data name="endturn" xml:space="preserve">
+    <value>Закончить ход</value>
+  </data>
+  <data name="freeparking" xml:space="preserve">
+    <value>Если вы попадете сюда, то получите бесплатную парковку.</value>
+  </data>
+  <data name="freeparkingpay" xml:space="preserve">
+    <value>{0} нашел спрятанную сумку с ${1} в ней</value>
+  </data>
+  <data name="gameover" xml:space="preserve">
+    <value>Игра закончена</value>
+  </data>
+  <data name="got" xml:space="preserve">
+    <value>получил</value>
+  </data>
+  <data name="gotojail" xml:space="preserve">
+    <value>Вы попали в тюрьму за кражу мыла</value>
+  </data>
+  <data name="jail" xml:space="preserve">
+    <value>Добро пожаловать в лучшее место</value>
+  </data>
+  <data name="jailperson" xml:space="preserve">
+    <value>{0} сидит в тюрьме</value>
+  </data>
+  <data name="jailvisit" xml:space="preserve">
+    <value>Вы посещаете тюрьму, чтобы отдать своему приятелю курсовой проект, потому что он как-то потерял его.</value>
+  </data>
+  <data name="loadgame" xml:space="preserve">
+    <value>Загрузить игру</value>
+  </data>
+  <data name="managestreets" xml:space="preserve">
+    <value>Менеджер улиц</value>
+  </data>
+  <data name="mortage" xml:space="preserve">
+    <value>Заложить</value>
+  </data>
+  <data name="mortaged" xml:space="preserve">
+    <value>{0} заложил{1}</value>
+  </data>
+  <data name="moves" xml:space="preserve">
+    <value>{0} перешел на {1}</value>
+  </data>
+  <data name="name" xml:space="preserve">
+    <value>Имя</value>
+  </data>
+  <data name="newgame" xml:space="preserve">
+    <value>Начать новую игру</value>
+  </data>
+  <data name="onmortage" xml:space="preserve">
+    <value>Заложен</value>
+  </data>
+  <data name="parkingmoney" xml:space="preserve">
+    <value>Деньги за бесплатную парковку:</value>
+  </data>
+  <data name="property" xml:space="preserve">
+    <value>{0} {12} эта недвижимость в настоящее время принадлежит {1} {12} {2} покупка этой {12} недвижимости стоит ${3} Аренда ${4} {12} Затраты на модернизацию улицы: ${5} {12} С 1 домом ваша арендная плата составляет: ${6} {12} С 2 домами ваша арендная плата составляет: ${7} {12} С 3 домом арендная плата составляет: ${8} {12} С 4 домом арендная плата составляет: ${9} {12} С гостиницей арендная плата составляет: ${10} {12} Стоимость заложения: ${11} {12} Если у вас есть весь город, то арендная плата удваивается."</value>
+  </data>
+  <data name="propertyhouses" xml:space="preserve">
+    <value>На улице {1} было построено домов {1}</value>
+  </data>
+  <data name="propertyowner" xml:space="preserve">
+    <value>никто</value>
+  </data>
+  <data name="railroad" xml:space="preserve">
+    <value>{0}{1} эта железная дорога в настоящее время принадлежит {2} {1} покупка этой {1} стоит ${3}. Аренда при наличии 1 железной дороги: ${4}{1} Аренда при наличии 2 железных дорог: ${5}{1} Аренда при наличии 3 железных дорог: ${6}{1} Аренда при наличии 4 железных дорог: ${7}{1} Стоимость заложения: ${8}</value>
+  </data>
+  <data name="railroadpay" xml:space="preserve">
+    <value>{0} заплатил ${1} игроку {2}</value>
+  </data>
+  <data name="sellstreet" xml:space="preserve">
+    <value>Понизить</value>
+  </data>
+  <data name="start" xml:space="preserve">
+    <value>{0}{1}Если вы попадете на это поле, вы получите $400 {1}Если вы пройдете эту плитку, вы получите $200</value>
+  </data>
+  <data name="startmoney" xml:space="preserve">
+    <value>{0} попал на поле старта и получил дополнительно $400</value>
+  </data>
+  <data name="taxes" xml:space="preserve">
+    <value>К сожалению, вам придется платить налоги, но не волнуйтесь {0} В реальной жизни вам не придется платить 10% от вашей общей чистой стоимости!</value>
+  </data>
+  <data name="taxespay10" xml:space="preserve">
+    <value>{0} пришлось заплатить ${1}</value>
+  </data>
+  <data name="taxespay200" xml:space="preserve">
+    <value>{0} пришлось заплатить $200</value>
+  </data>
+  <data name="throwdice" xml:space="preserve">
+    <value>{0} выбил {1} и {2}</value>
+  </data>
+  <data name="tooltipbuy" xml:space="preserve">
+    <value>Нажмите 'b', чтобы быстро купить недвижимость</value>
+  </data>
+  <data name="tooltipdice" xml:space="preserve">
+    <value>Нажмите 't', чтобы быстро бросить игральную кость.</value>
+  </data>
+  <data name="tooltipmanage" xml:space="preserve">
+    <value>Нажмите 'm', чтобы быстро управлять своими объектами</value>
+  </data>
+  <data name="tooltipturn" xml:space="preserve">
+    <value>Нажмите 'e', чтобы быстро завершить свой ход.</value>
+  </data>
+  <data name="totalplayers" xml:space="preserve">
+    <value>Количество игроков:</value>
+  </data>
+  <data name="upgrade" xml:space="preserve">
+    <value>{0} улучшил {1}</value>
+  </data>
+  <data name="upgradecost" xml:space="preserve">
+    <value>Стоимость улучшения</value>
+  </data>
+  <data name="winner" xml:space="preserve">
+    <value>выиграл!</value>
+  </data>
+</root>
