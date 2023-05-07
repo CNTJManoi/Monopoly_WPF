@@ -61,7 +61,8 @@ namespace Monopoly.Tests
             // Arrange
             Game g = new Game(2);
             g.InitNewGame(2);
-            var player = new Player(g, "Player  1", 50, g.Start);
+            var player = g.Players[0];
+            player.CurrentTile = g.Start;
 
             // Act
             player.MoveTo(2);

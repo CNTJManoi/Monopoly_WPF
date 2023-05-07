@@ -72,7 +72,7 @@ namespace Monopoly.Tests
             var deck = new Deck(cards);
 
             // Act
-            while (!deck.IsEmpty())
+            for (int i = 0; i < deck.Cards.Length; i++)
             {
                 deck.Pop();
             }
@@ -109,6 +109,7 @@ namespace Monopoly.Tests
             var card1 = cards[0];
 
             // Act
+            deck.Shuffle();
             deck.Shuffle();
 
             // Assert
