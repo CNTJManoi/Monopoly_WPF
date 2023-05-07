@@ -22,17 +22,13 @@ public class Deck
 
     public void Push(Card card)
     {
-        if (!IsFull())
+        if (Top + 1 < Cards.Length)
         {
             Top++;
             Cards[Top] = card;
         }
     }
 
-    public bool IsFull()
-    {
-        return Top > Cards.Length;
-    }
 
     public Card Peek()
     {
@@ -55,6 +51,7 @@ public class Deck
         if (Top == -1)
         {
             Cards = NewCardArray;
+            Top = Cards.Length - 1;
             return true;
         }
 

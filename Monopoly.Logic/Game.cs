@@ -126,11 +126,14 @@ public class Game : INotifyPropertyChanged
 
     public void ThrowDiceAndMovePlayer()
     {
-        CurrentPlayer.DiceEyes = PlayerDice.ThrowDice();
-        PlayerDice.HasBeenThrown = true;
-        GameInfo.Enqueue(string.Format(Properties.Language.throwdice, CurrentPlayer.Name, PlayerDice.FirstDice,
-            PlayerDice.SecondDice));
-        CurrentPlayer.MoveTo(CurrentPlayer.DiceEyes);
+        if (!PlayerDice.HasBeenThrown)
+        {
+            CurrentPlayer.DiceEyes = PlayerDice.ThrowDice();
+            PlayerDice.HasBeenThrown = true;
+            GameInfo.Enqueue(string.Format(Properties.Language.throwdice, CurrentPlayer.Name, PlayerDice.FirstDice,
+                PlayerDice.SecondDice));
+            CurrentPlayer.MoveTo(CurrentPlayer.DiceEyes);
+        }
     }
 
     public void ThrowDiceAndMovePlayer(int value)

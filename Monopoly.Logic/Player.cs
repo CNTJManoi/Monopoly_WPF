@@ -60,6 +60,10 @@ public class Player : INotifyPropertyChanged
 
     public void PayMoneyTo(Player otherplayer, int moneyToPay)
     {
+        if (Money - moneyToPay < 0)
+        {
+            throw new ArgumentException("Недостаточно денег для оплаты аренды!");
+        }
         Money -= moneyToPay;
         otherplayer.Money += moneyToPay;
     }
@@ -100,7 +104,7 @@ public class Player : INotifyPropertyChanged
     public void BuyBuilding()
     {
         var street = (TileBuyable)CurrentTile;
-
+        if (street.HasOwner) return;
         if (Money > street.Price)
         {
             Money -= street.Price;
