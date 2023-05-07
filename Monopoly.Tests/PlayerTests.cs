@@ -16,6 +16,7 @@ namespace Monopoly.Tests
         {
             // Arrange
             Game g = new Game(2);
+            g.InitNewGame(2);
             TileStart ts = new TileStart(g, "Поле старта");
             var player1 = new Player(g, "Player  1", 100, ts);
             var player2 = new Player(g, "Player  2", 100, ts);
@@ -32,6 +33,7 @@ namespace Monopoly.Tests
         {
             // Arrange
             Game g = new Game(2);
+            g.InitNewGame(2);
             TileStart ts = new TileStart(g, "Поле старта");
             var player1 = new Player(g, "Player  1", 100, ts);
             var player2 = new Player(g, "Player  2", 100, ts);
@@ -48,6 +50,7 @@ namespace Monopoly.Tests
         {
             // Arrange
             Game g = new Game(2);
+            g.InitNewGame(2);
             TileStart ts = new TileStart(g, "Поле старта");
             var player1 = new Player(g, "Player  1", 50, ts);
             var player2 = new Player(g, "Player  2", 100, ts);
@@ -61,14 +64,15 @@ namespace Monopoly.Tests
             // Arrange
             Game g = new Game(2);
             g.InitNewGame(2);
-            var player = g.Players[0];
-            player.CurrentTile = g.Start;
+            var player = new Player(g, "Player  1", 50, g.Board.GetAt(0));
+            player.CurrentTile = g.Board.GetAt(0);
+            player.IsInJail = false;
 
             // Act
-            player.MoveTo(2);
+            player.MoveTo(3);
 
             // Assert
-            Assert.Equal(g.Board.GetAt(2), player.CurrentTile);
+            Assert.Equal(g.Board.GetAt(3), player.CurrentTile);
         }
 
         [Fact]
@@ -77,10 +81,10 @@ namespace Monopoly.Tests
             // Arrange
             Game g = new Game(2);
             g.InitNewGame(2);
-            var player = new Player(g, "Player  1", 50, g.Board.GetAt(2));
+            var player = new Player(g, "Player  1", 50, g.Board.GetAt(3));
 
             // Act
-            player.MoveTo(-2);
+            player.MoveTo(-3);
 
             // Assert
             Assert.Equal(g.Start, player.CurrentTile);

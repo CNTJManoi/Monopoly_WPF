@@ -123,16 +123,15 @@ namespace Monopoly.Tests
         public void ThrowDiceAndMovePlayer_PlayerMovedToCorrectPosition()
         {
             // Arrange
-            Game g = new Game(2);
-            g.InitNewGame(2);
             var game = new Game(2);
             game.InitNewGame(2);
+            game.Players[0].MoveTo(3);
 
             // Act
             game.ThrowDiceAndMovePlayer();
 
             // Assert
-            Assert.Equal(game.Board.GetAt(game.CurrentPlayer.DiceEyes), game.Players[0].CurrentTile);
+            Assert.Equal(game.Board.GetAt(game.CurrentPlayer.DiceEyes + 3), game.Players[0].CurrentTile);
         }
         [Fact]
         public void ThrowDiceAndMovePlayer_MaximumDiceValue()
