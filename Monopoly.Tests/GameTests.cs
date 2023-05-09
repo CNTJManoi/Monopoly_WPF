@@ -137,8 +137,6 @@ namespace Monopoly.Tests
         public void ThrowDiceAndMovePlayer_MaximumDiceValue()
         {
             // Arrange
-            Game g = new Game(2);
-            g.InitNewGame(2);
             var game = new Game(2);
             game.InitNewGame(2);
 
@@ -153,8 +151,6 @@ namespace Monopoly.Tests
         public void ThrowDiceAndMovePlayer_DiceAlreadyThrown()
         {
             // Arrange
-            Game g = new Game(2);
-            g.InitNewGame(2);
             var game = new Game(2);
             game.InitNewGame(2);
 
@@ -175,8 +171,6 @@ namespace Monopoly.Tests
         public void NextTurn_IncrementPlayerTurn()
         {
             // Arrange
-            Game g = new Game(2);
-            g.InitNewGame(2);
             var game = new Game(2);
             game.InitNewGame(2);
 
@@ -191,8 +185,6 @@ namespace Monopoly.Tests
         public void NextTurn_RotateToFirstPlayerAfterLastPlayer()
         {
             // Arrange
-            Game g = new Game(2);
-            g.InitNewGame(2);
             var game = new Game(2);
             game.InitNewGame(2);
 

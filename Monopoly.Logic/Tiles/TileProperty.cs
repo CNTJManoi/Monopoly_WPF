@@ -46,7 +46,7 @@ public class TileProperty : TileBuyable
 
     public bool CanBeUpgraded()
     {
-        if (OnMortage) return true;
+        if (OnMortage) return false;
         var first = false;
         var second = false;
         var third = false;
