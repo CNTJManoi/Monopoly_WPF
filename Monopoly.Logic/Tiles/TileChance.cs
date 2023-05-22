@@ -12,11 +12,11 @@ public class TileChance : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
 
         if (CurrentGame.ChanceCards.Peek() != null)
         {
-            CurrentGame.GameInfo.Enqueue(player.Name + " " + Properties.Language.got + " " +
+            CurrentGame.AddInfo(player.Name + " " + Properties.Language.got + " " +
                                          CurrentGame.ChanceCards.Peek().Description);
             CurrentGame.ChanceCards.Pop().Use(player);
         }

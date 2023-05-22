@@ -9,13 +9,13 @@ public class TileRailRoad : TileBuyable
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
 
         if (Owner != null && !player.Equals(Owner))
         {
             var toPay = Rent[Owner.TotalRailRoads - 1];
             player.PayMoneyTo(Owner, toPay);
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.companypay, player.Name, toPay, Owner.Name));
+            CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name, toPay, Owner.Name));
         }
     }
 

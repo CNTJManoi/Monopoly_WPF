@@ -1,7 +1,7 @@
 ﻿namespace Monopoly.Logic;
 
 /// <summary>
-///     interface for defining what a tile that can be bought can do.
+///     Интерфейс который определяет можно ли купить поле
 /// </summary>
 public interface IBuyable
 {

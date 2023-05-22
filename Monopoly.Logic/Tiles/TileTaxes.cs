@@ -12,17 +12,17 @@ public class TileTaxes : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
 
         if (player.Money > 1000)
         {
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.taxespay200, player.Name));
+            CurrentGame.AddInfo(string.Format(Properties.Language.taxespay200, player.Name));
             CurrentGame.FreeParkingTreasure += 200;
             player.Money -= 200;
         }
         else
         {
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.taxespay10, player.Name, player.Money / 10));
+            CurrentGame.AddInfo(string.Format(Properties.Language.taxespay10, player.Name, player.Money / 10));
             CurrentGame.FreeParkingTreasure += player.Money / 10;
             player.Money -= player.Money / 10;
         }

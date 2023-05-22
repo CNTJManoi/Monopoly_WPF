@@ -14,7 +14,7 @@ public class Dice
     public int FirstDice { get; set; }
     public int SecondDice { get; set; }
     public bool HasBeenThrown { get; set; }
-    public Random Random { get; set; }
+    private Random Random { get; }
 
     public int ThrowDice()
     {

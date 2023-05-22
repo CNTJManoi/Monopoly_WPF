@@ -12,9 +12,9 @@ public class TileFreeParking : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
         if (CurrentGame.FreeParkingTreasure != 0)
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.freeparkingpay, player.Name,
+            CurrentGame.AddInfo(string.Format(Properties.Language.freeparkingpay, player.Name,
                 CurrentGame.FreeParkingTreasure));
 
         player.Money += CurrentGame.FreeParkingTreasure;

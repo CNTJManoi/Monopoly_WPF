@@ -17,7 +17,7 @@ public class Configuration
     }
 
     public string FileName { get; set; }
-    public Game CurrentGame { get; set; }
+    public Game CurrentGame { get; }
 
     public List<Card> GetAllCards(string cardLocation)
     {

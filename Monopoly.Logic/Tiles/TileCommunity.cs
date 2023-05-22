@@ -12,11 +12,11 @@ public class TileCommunity : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
 
         if (CurrentGame.CommunityCards.Peek() != null)
         {
-            CurrentGame.GameInfo.Enqueue(player.Name + " " + Properties.Language.got + " " +
+            CurrentGame.AddInfo(player.Name + " " + Properties.Language.got + " " +
                                          CurrentGame.CommunityCards.Peek().Description);
             CurrentGame.CommunityCards.Pop().Use(player);
         }

@@ -106,7 +106,7 @@ namespace Monopoly.Logic.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {0} выбросил{1}.
+        ///   Ищет локализованную строку, похожую на {0} выбросил {1}.
         /// </summary>
         public static string cheatdice {
             get {
@@ -169,7 +169,7 @@ namespace Monopoly.Logic.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {0} понизил{1}.
+        ///   Ищет локализованную строку, похожую на {0} понизил {1}.
         /// </summary>
         public static string downgrade {
             get {
@@ -286,7 +286,7 @@ namespace Monopoly.Logic.Properties {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на {0} заложил{1}.
+        ///   Ищет локализованную строку, похожую на {0} заложил {1}.
         /// </summary>
         public static string mortaged {
             get {

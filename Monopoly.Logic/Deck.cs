@@ -16,9 +16,9 @@ public class Deck
         Top = cards.Count - 1;
     }
 
-    public Card[] Cards { get; set; }
-    public Card[] NewCardArray { get; set; }
-    public int Top { get; set; }
+    public Card[] Cards { get; private set; }
+    public Card[] NewCardArray { get; }
+    public int Top { get; private set; }
 
     public void Push(Card card)
     {

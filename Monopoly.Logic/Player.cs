@@ -111,7 +111,7 @@ public class Player : INotifyPropertyChanged
             street.HasOwner = true;
             street.Owner = this;
             Streets.Add(street);
-            CurrentGame.GameInfo.Enqueue(string.Format("{0} купил {1}", Name, street.Description));
+            CurrentGame.AddInfo(string.Format("{0} купил {1}", Name, street.Description));
             ;
             if (street is TileCompany)
                 TotalCompanies++;

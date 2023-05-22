@@ -14,9 +14,9 @@ public class TileJail : Tile
     public override void DoAction(Player player)
     {
         if (player.JailCounter != 0)
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.jailperson, player.Name));
+            CurrentGame.AddInfo(string.Format(Properties.Language.jailperson, player.Name));
         else
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+            CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
 
         player.JailCounter++;
         if (CurrentGame.PlayerDice.IsDouble() || player.JailCounter == 3)

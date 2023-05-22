@@ -12,7 +12,7 @@ public class City
         Streets = new ObservableCollection<TileProperty>();
     }
 
-    public ObservableCollection<TileProperty> Streets { get; set; }
+    public ObservableCollection<TileProperty> Streets { get; }
 
     /// <summary>
     ///     Проверяет, владеет ли игрок всеми объектами недвижимости, принадлежащими этому городу

@@ -12,7 +12,7 @@ public class TileGoToJail : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
         player.CurrentTile = CurrentGame.Jail;
         player.IsInJail = true;
     }

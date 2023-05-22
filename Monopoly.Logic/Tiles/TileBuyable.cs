@@ -57,7 +57,7 @@ public abstract class TileBuyable : Tile, IBuyable
         {
             if (Owner.Money > UpgradeCost)
             {
-                CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.upgrade, Owner.Name, Description));
+                CurrentGame.AddInfo(string.Format(Properties.Language.upgrade, Owner.Name, Description));
                 TotalUpgrades++;
                 Owner.Money -= UpgradeCost;
             }
@@ -71,7 +71,7 @@ public abstract class TileBuyable : Tile, IBuyable
     {
         if (TotalUpgrades > 1)
         {
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.downgrade, Owner.Name, Description));
+            CurrentGame.AddInfo(string.Format(Properties.Language.downgrade, Owner.Name, Description));
             TotalUpgrades--;
             Owner.Money += UpgradeCost;
         }
@@ -83,7 +83,7 @@ public abstract class TileBuyable : Tile, IBuyable
         }
         else
         {
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.mortaged, Owner.Name, Description));
+            CurrentGame.AddInfo(string.Format(Properties.Language.mortaged, Owner.Name, Description));
             OnMortage = true;
             Owner.Money += Mortage;
         }

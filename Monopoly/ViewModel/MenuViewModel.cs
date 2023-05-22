@@ -13,11 +13,14 @@ namespace Monopoly.ViewModel {
     /// <summary>
     /// Модель представления для связывания базы данных с представлением.
     /// </summary>
-    public class MenuViewModel : BasicViewModel {
+    public class MenuViewModel : BasicViewModel
+    {
 
-        public MenuViewModel() {
+        private MainWindowViewModel _mainViewModel;
+        public MenuViewModel(MainWindowViewModel model) {
             MaxPlayers = new List<int> { 2, 3, 4 };
             Languages = new string[] { "Russian" };
+            _mainViewModel = model;
         }
 
         # region Commands
@@ -45,13 +48,22 @@ namespace Monopoly.ViewModel {
 
         #region Command methods
 
-        public void StartGame() {
-            GameView view = new GameView();
-            GameViewModel gmv = new GameViewModel(TotalPlayers);
-            view.DataContext = gmv;
-            view.Closing += gmv.OnWindowClosing;
-            view.Show();
-            Application.Current.MainWindow.Close();
+        public void StartGame()
+        {
+            string nickname1 = "";
+            if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname1 = NicknameOnePlayer;
+            else nickname1 = "Player1";
+            string nickname2 = "";
+            if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname2 = NicknameTwoPlayer;
+            else nickname1 = "Player2";
+            string nickname3 = "";
+            if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname3 = NicknameThreePlayer;
+            else nickname1 = "Player3";
+            string nickname4 = "";
+            if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname4 = NicknameFourPlayer;
+            else nickname1 = "Player4";
+            GameViewModel gmv = new GameViewModel(TotalPlayers, _mainViewModel, nickname1, nickname2, nickname3, nickname4);
+            _mainViewModel.GoToViewModel(gmv);
         }
 
         public bool CanStartGame() {
@@ -73,12 +85,8 @@ namespace Monopoly.ViewModel {
             }
 
             if (!string.IsNullOrEmpty(filename) && filename.Contains(".poly")) {
-                GameView view = new GameView();
-                GameViewModel gmv = new GameViewModel(filename);
-                view.DataContext = gmv;
-                view.Closing += gmv.OnWindowClosing;
-                view.Show();
-                Application.Current.MainWindow.Close();
+                GameViewModel gmv = new GameViewModel(filename, _mainViewModel);
+                _mainViewModel.GoToViewModel(gmv);
             }
         }
         #endregion
@@ -113,11 +121,72 @@ namespace Monopoly.ViewModel {
             set {
                 if (_totalPlayers != value) {
                     _totalPlayers = value;
+                    Clear();
                     RaisePropertyChanged("TotalPlayers");
                 }
             }
         }
 
+        private string _nicknameOnePlayer;
+        public string NicknameOnePlayer
+        {
+            get { return _nicknameOnePlayer; }
+            set
+            {
+                if (_nicknameOnePlayer != value)
+                {
+                    _nicknameOnePlayer = value;
+                    RaisePropertyChanged("NicknameOnePlayer");
+                }
+            }
+        }
+        private string _nicknameTwoPlayer;
+        public string NicknameTwoPlayer
+        {
+            get { return _nicknameTwoPlayer; }
+            set
+            {
+                if (_nicknameTwoPlayer != value)
+                {
+                    _nicknameTwoPlayer = value;
+                    RaisePropertyChanged("NicknameTwoPlayer");
+                }
+            }
+        }
+        private string _nicknameThreePlayer;
+        public string NicknameThreePlayer
+        {
+            get { return _nicknameThreePlayer; }
+            set
+            {
+                if (_nicknameThreePlayer != value)
+                {
+                    _nicknameThreePlayer = value;
+                    RaisePropertyChanged("NicknameThreePlayer");
+                }
+            }
+        }
+        private string _nicknameFourPlayer;
+        public string NicknameFourPlayer
+        {
+            get { return _nicknameFourPlayer; }
+            set
+            {
+                if (_nicknameFourPlayer != value)
+                {
+                    _nicknameFourPlayer = value;
+                    RaisePropertyChanged("NicknameFourPlayer");
+                }
+            }
+        }
+
+        private void Clear()
+        {
+            NicknameOnePlayer = "";
+            NicknameTwoPlayer = "";
+            NicknameThreePlayer = "";
+            NicknameFourPlayer = "";
+        }
         #endregion
     }
 }

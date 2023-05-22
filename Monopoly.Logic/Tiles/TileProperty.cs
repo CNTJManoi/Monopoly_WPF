@@ -12,11 +12,11 @@ public class TileProperty : TileBuyable
         UpgradeCost = upgradeCost;
     }
 
-    public City City { get; set; }
+    public City City { get; }
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
 
         if (Owner != null && !player.Equals(Owner))
         {
@@ -25,20 +25,20 @@ public class TileProperty : TileBuyable
                 if (TotalUpgrades == 0 && !OnMortage)
                 {
                     player.PayMoneyTo(Owner, Rent[TotalUpgrades] * 2);
-                    CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.companypay, player.Name,
+                    CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name,
                         Rent[TotalUpgrades] * 2, Owner.Name));
                 }
                 else
                 {
                     player.PayMoneyTo(Owner, Rent[TotalUpgrades]);
-                    CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.companypay, player.Name,
+                    CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name,
                         Rent[TotalUpgrades], Owner.Name));
                 }
             }
             else
             {
                 player.PayMoneyTo(Owner, Rent[TotalUpgrades]);
-                CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.companypay, player.Name, Rent[TotalUpgrades],
+                CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name, Rent[TotalUpgrades],
                     Owner.Name));
             }
         }

@@ -1,5 +1,4 @@
-﻿using Monopoly.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,14 +14,14 @@ using System.Windows.Shapes;
 
 namespace Monopoly.View
 {
-	/// <summary>
-	/// Interaction logic for EndScreen.xaml
-	/// </summary>
-	public partial class EndScreen : UserControl
-	{
-		public EndScreen()
-		{
-			InitializeComponent();
-		}
-	}
+    /// <summary>
+    /// Логика взаимодействия для MainWindowView.xaml
+    /// </summary>
+    public partial class MainWindowView : Window
+    {
+        public MainWindowView()
+        {
+            InitializeComponent();
+        }
+    }
 }

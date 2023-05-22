@@ -10,7 +10,7 @@ public abstract class Card
         Description = description;
     }
 
-    public string Description { get; set; }
+    public string Description { get; }
 
     /// <summary>
     ///     Абстрактный метод, который можно использовать для определния что должны делать карты

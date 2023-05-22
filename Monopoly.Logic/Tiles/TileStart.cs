@@ -12,8 +12,8 @@ public class TileStart : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.startmoney, player.Name));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.startmoney, player.Name));
         player.Money += 400;
     }
 

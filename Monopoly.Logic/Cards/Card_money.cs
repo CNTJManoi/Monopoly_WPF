@@ -11,7 +11,7 @@ public class CardMoney : Card
         MoneyForPlayer = moneyForPlayer;
     }
 
-    public int MoneyForPlayer { get; set; }
+    public int MoneyForPlayer { get; }
 
     public override void Use(Player player)
     {

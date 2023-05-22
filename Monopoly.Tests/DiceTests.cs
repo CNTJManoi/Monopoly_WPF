@@ -10,16 +10,6 @@ namespace Monopoly.Tests
 {
     public class DiceTests
     {
-        [Fact]
-        public void TestConstructor()
-        {
-            // Arrange & Act
-            var dice = new Dice();
-
-            // Assert
-            Assert.False(dice.HasBeenThrown);
-            Assert.NotNull(dice.Random);
-        }
 
         [Fact]
         public void TestThrowDice()

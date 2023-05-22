@@ -33,23 +33,24 @@ public class Game : INotifyPropertyChanged
     ///     Конструктор для создания новой игры
     /// </summary>
     /// <param name="totalPlayers"></param>
-    public Game(int totalPlayers)
+    public Game(int totalPlayers, string name1 = "Player1",
+        string name2 = "Player2", string name3 = "Player3", string name4 = "Player4")
         : this()
     {
-        InitNewGame(totalPlayers);
+        InitNewGame(totalPlayers, name1, name2, name3, name4);
     }
 
-    public ObservableCollection<Player> Players { get; set; }
-    public Configuration CurrentConfigFile { get; set; }
-    public Deck ChanceCards { get; set; }
-    public Deck CommunityCards { get; set; }
+    public ObservableCollection<Player> Players { get; private set; }
+    public Configuration CurrentConfigFile { get; }
+    public Deck ChanceCards { get; private set; }
+    public Deck CommunityCards { get; private set; }
     public Player CurrentPlayer { get; set; }
-    public int PlayerTurn { get; set; }
+    public int PlayerTurn { get; private set; }
     public Dice PlayerDice { get; set; }
 
-    public QueueLimit<string> GameInfo { get; set; }
+    public QueueLimit<string> GameInfo { get; }
 
-    public TileLinkedList Board { get; set; }
+    public TileLinkedList Board { get; private set; }
     public TileJailVisit JailVisit { get; set; }
     public TileJail Jail { get; set; }
     public TileGoToJail GoToJail { get; set; }
@@ -72,14 +73,18 @@ public class Game : INotifyPropertyChanged
     ///     инициализировать новую игру
     /// </summary>
     /// <param name="maxplayers"></param>
-    public void InitNewGame(int maxplayers)
+    public void InitNewGame(int maxplayers, string name1 = "Player1", 
+        string name2 = "Player2", string name3 = "Player3", string name4 = "Player4")
     {
         Board = CurrentConfigFile.LoadDefauldBoard();
         LoadCards();
 
         Players = new ObservableCollection<Player>();
-        for (var index = 0; index < maxplayers; index++)
-            Players.Add(new Player(this, "Player " + (index + 1), 1500, Start));
+        Players.Add(new Player(this, name1, 1500, Start));
+        if(maxplayers >= 2) Players.Add(new Player(this, name2, 1500, Start));
+        if(maxplayers >= 3) Players.Add(new Player(this, name3, 1500, Start));
+        if (maxplayers >= 4) Players.Add(new Player(this, name4, 1500, Start));
+
         CurrentPlayer = Players.First();
     }
 
@@ -130,7 +135,7 @@ public class Game : INotifyPropertyChanged
         {
             CurrentPlayer.DiceEyes = PlayerDice.ThrowDice();
             PlayerDice.HasBeenThrown = true;
-            GameInfo.Enqueue(string.Format(Properties.Language.throwdice, CurrentPlayer.Name, PlayerDice.FirstDice,
+            AddInfo(string.Format(Properties.Language.throwdice, CurrentPlayer.Name, PlayerDice.FirstDice,
                 PlayerDice.SecondDice));
             CurrentPlayer.MoveTo(CurrentPlayer.DiceEyes);
         }
@@ -140,7 +145,7 @@ public class Game : INotifyPropertyChanged
     {
         CurrentPlayer.DiceEyes = value;
         PlayerDice.HasBeenThrown = true;
-        GameInfo.Enqueue(string.Format(Properties.Language.cheatdice, CurrentPlayer.Name, value));
+        AddInfo(string.Format(Properties.Language.cheatdice, CurrentPlayer.Name, value));
 
         CurrentPlayer.MoveTo(CurrentPlayer.DiceEyes);
     }
@@ -224,4 +229,9 @@ public class Game : INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
+
+    public void AddInfo(string info)
+    {
+        GameInfo.Enqueue(info);
+    }
 }

@@ -13,12 +13,12 @@ public abstract class Tile
         HasBuildings = false;
     }
 
-    public Game CurrentGame { get; set; }
+    public Game CurrentGame { get; }
 
     public Tile NextTile { get; set; }
     public Tile PreviousTile { get; set; }
 
-    public string Description { get; set; }
+    public string Description { get; }
     public bool HasOwner { get; set; }
     public bool HasBuildings { get; set; }
 

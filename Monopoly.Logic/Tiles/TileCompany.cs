@@ -12,12 +12,12 @@ public class TileCompany : TileBuyable
 
     public override void DoAction(Player player)
     {
-        CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
         if (Owner != null && !Owner.Equals(player))
         {
             var moneyToPay = Owner.TotalCompanies >= 2 ? player.DiceEyes * 10 : player.DiceEyes * 4;
             player.PayMoneyTo(Owner, moneyToPay);
-            CurrentGame.GameInfo.Enqueue(string.Format(Properties.Language.companypay, player.Name, moneyToPay,
+            CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name, moneyToPay,
                 Owner.Name));
         }
     }
