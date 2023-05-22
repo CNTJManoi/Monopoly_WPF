@@ -1,39 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Monopoly.ViewModel;
 
-namespace Monopoly.ViewModel
+public class MainWindowViewModel : BasicViewModel
 {
-    public class MainWindowViewModel : BasicViewModel   
+    private BasicViewModel _viewModel;
+
+    public MainWindowViewModel()
     {
-        private BasicViewModel _viewModel;
-        public BasicViewModel CurrentContentVM
-        {
-            get
-            {
-                return _viewModel;
-            }
-            set
-            {
-                if (_viewModel != value)
-                {
-                    _viewModel = value;
-                    RaisePropertyChanged("CurrentContentVM");
-                }
-            }
-        }
+        var mw = new MenuViewModel(this);
+        CurrentContentVM = mw;
+    }
 
-        public MainWindowViewModel()
+    public BasicViewModel CurrentContentVM
+    {
+        get => _viewModel;
+        set
         {
-            MenuViewModel mw = new MenuViewModel(this);
-            CurrentContentVM = mw;
+            if (_viewModel != value)
+            {
+                _viewModel = value;
+                RaisePropertyChanged("CurrentContentVM");
+            }
         }
+    }
 
-        public void GoToViewModel(BasicViewModel bvm)
-        {
-            CurrentContentVM = bvm;
-        }
+    public void GoToViewModel(BasicViewModel bvm)
+    {
+        CurrentContentVM = bvm;
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using Monopoly.Logic.Properties;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Поле для посещения тюрьмы
@@ -12,11 +14,11 @@ public class TileJailVisit : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
     }
 
     public override string GetCardInformation()
     {
-        return Properties.Language.jailvisit;
+        return Language.jailvisit;
     }
 }

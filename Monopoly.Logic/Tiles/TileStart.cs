@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using Monopoly.Logic.Properties;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Поле старта
@@ -12,13 +14,13 @@ public class TileStart : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
-        CurrentGame.AddInfo(string.Format(Properties.Language.startmoney, player.Name));
+        CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Language.startmoney, player.Name));
         player.Money += 400;
     }
 
     public override string GetCardInformation()
     {
-        return string.Format(Properties.Language.start, Description, Environment.NewLine);
+        return string.Format(Language.start, Description, Environment.NewLine);
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using Monopoly.Logic.Properties;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Поле для использования коммунальной карты.
@@ -12,18 +14,18 @@ public class TileCommunity : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
 
         if (CurrentGame.CommunityCards.Peek() != null)
         {
-            CurrentGame.AddInfo(player.Name + " " + Properties.Language.got + " " +
-                                         CurrentGame.CommunityCards.Peek().Description);
+            CurrentGame.AddInfo(player.Name + " " + Language.got + " " +
+                                CurrentGame.CommunityCards.Peek().Description);
             CurrentGame.CommunityCards.Pop().Use(player);
         }
     }
 
     public override string GetCardInformation()
     {
-        return Properties.Language.community;
+        return Language.community;
     }
 }

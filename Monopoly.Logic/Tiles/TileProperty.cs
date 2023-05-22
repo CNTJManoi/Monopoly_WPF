@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using Monopoly.Logic.Properties;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Обычное поле которое можно купить
@@ -16,7 +18,7 @@ public class TileProperty : TileBuyable
 
     public override void DoAction(Player player)
     {
-        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
 
         if (Owner != null && !player.Equals(Owner))
         {
@@ -25,20 +27,20 @@ public class TileProperty : TileBuyable
                 if (TotalUpgrades == 0 && !OnMortage)
                 {
                     player.PayMoneyTo(Owner, Rent[TotalUpgrades] * 2);
-                    CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name,
+                    CurrentGame.AddInfo(string.Format(Language.companypay, player.Name,
                         Rent[TotalUpgrades] * 2, Owner.Name));
                 }
                 else
                 {
                     player.PayMoneyTo(Owner, Rent[TotalUpgrades]);
-                    CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name,
+                    CurrentGame.AddInfo(string.Format(Language.companypay, player.Name,
                         Rent[TotalUpgrades], Owner.Name));
                 }
             }
             else
             {
                 player.PayMoneyTo(Owner, Rent[TotalUpgrades]);
-                CurrentGame.AddInfo(string.Format(Properties.Language.companypay, player.Name, Rent[TotalUpgrades],
+                CurrentGame.AddInfo(string.Format(Language.companypay, player.Name, Rent[TotalUpgrades],
                     Owner.Name));
             }
         }
@@ -103,15 +105,15 @@ public class TileProperty : TileBuyable
         var houses = string.Empty;
         if (Owner == null)
         {
-            propertyOwner = Properties.Language.propertyowner;
+            propertyOwner = Language.propertyowner;
         }
         else
         {
             propertyOwner = Owner.Name;
-            houses = string.Format(Properties.Language.propertyhouses, TotalUpgrades, Environment.NewLine);
+            houses = string.Format(Language.propertyhouses, TotalUpgrades, Environment.NewLine);
         }
 
-        return string.Format(Properties.Language.property, Description, propertyOwner, houses, Price, Rent[0],
+        return string.Format(Language.property, Description, propertyOwner, houses, Price, Rent[0],
             UpgradeCost, Rent[1], Rent[2], Rent[3], Rent[4], Rent[5], Mortage, Environment.NewLine);
     }
 }

@@ -12,19 +12,19 @@
             <local:GameView />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:ManageStreetsViewModel}">
-            <local:ManageStreets/>
+            <local:ManageStreets />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:EndScreenViewModel}">
-            <local:EndScreen/>
+            <local:EndScreen />
         </DataTemplate>
         <DataTemplate DataType="{x:Type vm:MenuViewModel}">
-            <local:Menu/>
+            <local:Menu />
         </DataTemplate>
     </Window.Resources>
     <Window.DataContext>
         <vm:MainWindowViewModel />
     </Window.DataContext>
     <Grid>
-        <ContentControl Content="{Binding CurrentContentVM}"></ContentControl>
+        <ContentControl Content="{Binding CurrentContentVM}" />
     </Grid>
 </Window>

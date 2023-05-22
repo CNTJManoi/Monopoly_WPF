@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using Monopoly.Logic.Properties;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Поле шанс карты
@@ -12,18 +14,18 @@ public class TileChance : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
 
         if (CurrentGame.ChanceCards.Peek() != null)
         {
-            CurrentGame.AddInfo(player.Name + " " + Properties.Language.got + " " +
-                                         CurrentGame.ChanceCards.Peek().Description);
+            CurrentGame.AddInfo(player.Name + " " + Language.got + " " +
+                                CurrentGame.ChanceCards.Peek().Description);
             CurrentGame.ChanceCards.Pop().Use(player);
         }
     }
 
     public override string GetCardInformation()
     {
-        return Properties.Language.chance;
+        return Language.chance;
     }
 }

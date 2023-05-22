@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using Monopoly.Logic.Properties;
 using Monopoly.Logic.Tiles;
 
 namespace Monopoly.Logic;
@@ -67,13 +68,18 @@ public class Game : INotifyPropertyChanged
         }
     }
 
+    public void AddInfo(string info)
+    {
+        GameInfo.Enqueue(info);
+    }
+
     #region Initiation of Games
 
     /// <summary>
     ///     инициализировать новую игру
     /// </summary>
     /// <param name="maxplayers"></param>
-    public void InitNewGame(int maxplayers, string name1 = "Player1", 
+    public void InitNewGame(int maxplayers, string name1 = "Player1",
         string name2 = "Player2", string name3 = "Player3", string name4 = "Player4")
     {
         Board = CurrentConfigFile.LoadDefauldBoard();
@@ -81,8 +87,8 @@ public class Game : INotifyPropertyChanged
 
         Players = new ObservableCollection<Player>();
         Players.Add(new Player(this, name1, 1500, Start));
-        if(maxplayers >= 2) Players.Add(new Player(this, name2, 1500, Start));
-        if(maxplayers >= 3) Players.Add(new Player(this, name3, 1500, Start));
+        if (maxplayers >= 2) Players.Add(new Player(this, name2, 1500, Start));
+        if (maxplayers >= 3) Players.Add(new Player(this, name3, 1500, Start));
         if (maxplayers >= 4) Players.Add(new Player(this, name4, 1500, Start));
 
         CurrentPlayer = Players.First();
@@ -135,7 +141,7 @@ public class Game : INotifyPropertyChanged
         {
             CurrentPlayer.DiceEyes = PlayerDice.ThrowDice();
             PlayerDice.HasBeenThrown = true;
-            AddInfo(string.Format(Properties.Language.throwdice, CurrentPlayer.Name, PlayerDice.FirstDice,
+            AddInfo(string.Format(Language.throwdice, CurrentPlayer.Name, PlayerDice.FirstDice,
                 PlayerDice.SecondDice));
             CurrentPlayer.MoveTo(CurrentPlayer.DiceEyes);
         }
@@ -145,7 +151,7 @@ public class Game : INotifyPropertyChanged
     {
         CurrentPlayer.DiceEyes = value;
         PlayerDice.HasBeenThrown = true;
-        AddInfo(string.Format(Properties.Language.cheatdice, CurrentPlayer.Name, value));
+        AddInfo(string.Format(Language.cheatdice, CurrentPlayer.Name, value));
 
         CurrentPlayer.MoveTo(CurrentPlayer.DiceEyes);
     }
@@ -229,9 +235,4 @@ public class Game : INotifyPropertyChanged
     public event PropertyChangedEventHandler PropertyChanged;
 
     #endregion
-
-    public void AddInfo(string info)
-    {
-        GameInfo.Enqueue(info);
-    }
 }

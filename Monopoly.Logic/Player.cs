@@ -25,12 +25,12 @@ public class Player : INotifyPropertyChanged
         Streets = new ObservableCollection<Tile>();
     }
 
-    public string Name { get; set; }
+    public string Name { get; }
     public Tile CurrentTile { get; set; }
-    public Game CurrentGame { get; set; }
+    public Game CurrentGame { get; }
 
     public int DiceEyes { get; set; }
-    public int TotalCompanies { get; set; }
+    public int TotalCompanies { get; private set; }
     public bool IsInJail { get; set; }
     public int JailCounter { get; set; }
     public int TotalRailRoads { get; set; }
@@ -60,10 +60,7 @@ public class Player : INotifyPropertyChanged
 
     public void PayMoneyTo(Player otherplayer, int moneyToPay)
     {
-        if (Money - moneyToPay < 0)
-        {
-            throw new ArgumentException("Недостаточно денег для оплаты аренды!");
-        }
+        if (Money - moneyToPay < 0) throw new ArgumentException("Недостаточно денег для оплаты аренды!");
         Money -= moneyToPay;
         otherplayer.Money += moneyToPay;
     }

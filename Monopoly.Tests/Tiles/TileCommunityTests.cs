@@ -1,43 +1,41 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using Monopoly.Logic;
-using Monopoly.Logic.Cards;
-using Monopoly.Logic.Tiles;
+using Monopoly.Logic.Properties;
 using Xunit;
 
-namespace Monopoly.Tests.Tiles
+namespace Monopoly.Tests.Tiles;
+
+public class TileCommunityTests
 {
-    public class TileCommunityTests
+    [Fact]
+    public void Should_AddPlayerAndCommunityCardDescriptionsToGameInfoQueue()
     {
-        [Fact]
-        public void Should_AddPlayerAndCommunityCardDescriptionsToGameInfoQueue()
-        {
-            // Arrange
-            var game = new Game(2);
-            game.InitNewGame(2);
-            Player player = game.Players[0];
-            player.MoveTo(2);
+        // Arrange
+        var game = new Game(2);
+        game.InitNewGame(2);
+        var player = game.Players[0];
+        player.MoveTo(2);
 
-            // Assert
-            Assert.True(game.GameInfo.Where(x => x.Contains(player.Name + " " + Monopoly.Logic.Properties.Language.got)).Count() > 0);
-            Assert.True(game.GameInfo.Where(x => x.Contains(string.Format(Monopoly.Logic.Properties.Language.moves, player.Name, player.CurrentTile.Description))).Count() > 0);
-        }
+        // Assert
+        Assert.True(game.GameInfo.Where(x => x.Contains(player.Name + " " + Language.got)).Count() > 0);
+        Assert.True(game.GameInfo
+            .Where(x => x.Contains(string.Format(Language.moves, player.Name, player.CurrentTile.Description)))
+            .Count() > 0);
+    }
 
-        [Fact]
-        public void Should_NotAddAnythingToGameInfoQueueIfCommunityCardIsNull()
-        {
-            // Arrange
-            var game = new Game(2);
-            game.InitNewGame(2);
-            Player player = game.Players[0];
-            player.MoveTo(2);
+    [Fact]
+    public void Should_NotAddAnythingToGameInfoQueueIfCommunityCardIsNull()
+    {
+        // Arrange
+        var game = new Game(2);
+        game.InitNewGame(2);
+        var player = game.Players[0];
+        player.MoveTo(2);
 
-            // Assert
-            Assert.True(game.GameInfo.Where(x => x.Contains(player.Name + " " + Monopoly.Logic.Properties.Language.got)).Count() > 0);
-            Assert.True(game.GameInfo.Where(x => x.Contains(string.Format(Monopoly.Logic.Properties.Language.moves, player.Name, player.CurrentTile.Description))).Count() > 0);
-        }
+        // Assert
+        Assert.True(game.GameInfo.Where(x => x.Contains(player.Name + " " + Language.got)).Count() > 0);
+        Assert.True(game.GameInfo
+            .Where(x => x.Contains(string.Format(Language.moves, player.Name, player.CurrentTile.Description)))
+            .Count() > 0);
     }
 }

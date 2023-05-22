@@ -1,97 +1,97 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Monopoly.Logic;
+using Monopoly.Logic.Properties;
 using Monopoly.Logic.Tiles;
 using Xunit;
 
-namespace Monopoly.Tests.Tiles
+namespace Monopoly.Tests.Tiles;
+
+public class TileCompanyTests
 {
-    public class TileCompanyTests
+    [Fact]
+    public void DoAction_AddsDescriptionToGameInfo()
     {
-        [Fact]
-        public void DoAction_AddsDescriptionToGameInfo()
-        {
-            // Arrange
-            var game = new Game(2);
-            game.InitNewGame(2);
-            var company = new TileCompany(game, "Electric Company", 100, 150);
+        // Arrange
+        var game = new Game(2);
+        game.InitNewGame(2);
+        var company = new TileCompany(game, "Electric Company", 100, 150);
 
-            // Act
-            company.DoAction(game.CurrentPlayer);
+        // Act
+        company.DoAction(game.CurrentPlayer);
 
-            // Assert
-            Assert.True(game.GameInfo.Where(x => x.Contains(string.Format(Logic.Properties.Language.moves, game.CurrentPlayer.Name, company.Description))).Count() > 0);
-        }
+        // Assert
+        Assert.True(game.GameInfo.Where(x =>
+            x.Contains(string.Format(Language.moves, game.CurrentPlayer.Name, company.Description))).Count() > 0);
+    }
 
-        [Fact]
-        public void DoAction_DoesNotChargeRent_IfCompanyNotOwned()
-        {
-            // Arrange
-            var game = new Game(2);
-            game.InitNewGame(2);
-            game.CurrentPlayer.Money = 50;
-            var company = new TileCompany(game, "Electric Company", 100, 150);
-            // Act
-            company.DoAction(game.CurrentPlayer);
+    [Fact]
+    public void DoAction_DoesNotChargeRent_IfCompanyNotOwned()
+    {
+        // Arrange
+        var game = new Game(2);
+        game.InitNewGame(2);
+        game.CurrentPlayer.Money = 50;
+        var company = new TileCompany(game, "Electric Company", 100, 150);
+        // Act
+        company.DoAction(game.CurrentPlayer);
 
-            // Assert
-            Assert.Equal(50, game.CurrentPlayer.Money);
-        }
+        // Assert
+        Assert.Equal(50, game.CurrentPlayer.Money);
+    }
 
-        [Fact]
-        public void DoAction_ChargesRent_IfCompanyOwned()
-        {
-            // Arrange
-            var game = new Game(2);
-            game.InitNewGame(2);
-            var company = new TileCompany(game, "Electric Company", 100, 150);
-            company.Owner = game.Players[0];
-            game.Players[1].DiceEyes = 6;
-            game.Players[1].Money = 300;
+    [Fact]
+    public void DoAction_ChargesRent_IfCompanyOwned()
+    {
+        // Arrange
+        var game = new Game(2);
+        game.InitNewGame(2);
+        var company = new TileCompany(game, "Electric Company", 100, 150);
+        company.Owner = game.Players[0];
+        game.Players[1].DiceEyes = 6;
+        game.Players[1].Money = 300;
 
-            // Act
-            company.DoAction(game.Players[1]);
+        // Act
+        company.DoAction(game.Players[1]);
 
-            // Assert
-            Assert.Equal(276, game.Players[1].Money);
-        }
+        // Assert
+        Assert.Equal(276, game.Players[1].Money);
+    }
 
-        [Fact]
-        public void GetCardInformation_FormatsCorrectly_IfCompanyOwned()
-        {
-            // Arrange
-            var game = new Game(2);
-            game.InitNewGame(2);
-            var company = new TileCompany(game, "Electric Company", 100, 150);
-            company.Owner = game.Players[0];
+    [Fact]
+    public void GetCardInformation_FormatsCorrectly_IfCompanyOwned()
+    {
+        // Arrange
+        var game = new Game(2);
+        game.InitNewGame(2);
+        var company = new TileCompany(game, "Electric Company", 100, 150);
+        company.Owner = game.Players[0];
 
-            // Act
-            var cardInfo = company.GetCardInformation();
+        // Act
+        var cardInfo = company.GetCardInformation();
 
-            // Assert
-            var expectedCardInfo = string.Format(Logic.Properties.Language.company, "Electric Company", Environment.NewLine, game.Players[0].Name, 150,
-                100);
-            Assert.Equal(expectedCardInfo, cardInfo);
-        }
+        // Assert
+        var expectedCardInfo = string.Format(Language.company, "Electric Company", Environment.NewLine,
+            game.Players[0].Name, 150,
+            100);
+        Assert.Equal(expectedCardInfo, cardInfo);
+    }
 
-        [Fact]
-        public void GetCardInformation_FormatsCorrectly_IfCompanyNotOwned()
-        {
-            // Arrange
-            var game = new Game(2);
-            game.InitNewGame(2);
-            var company = new TileCompany(game, "Electric Company", 100, 150);
+    [Fact]
+    public void GetCardInformation_FormatsCorrectly_IfCompanyNotOwned()
+    {
+        // Arrange
+        var game = new Game(2);
+        game.InitNewGame(2);
+        var company = new TileCompany(game, "Electric Company", 100, 150);
 
-            // Act
-            var cardInfo = company.GetCardInformation();
+        // Act
+        var cardInfo = company.GetCardInformation();
 
-            // Assert
-            var expectedCardInfo = string.Format(Logic.Properties.Language.company, "Electric Company", Environment.NewLine, Logic.Properties.Language.propertyowner, 150,
-                100);
-            Assert.Equal(expectedCardInfo, cardInfo);
-        }
+        // Assert
+        var expectedCardInfo = string.Format(Language.company, "Electric Company", Environment.NewLine,
+            Language.propertyowner, 150,
+            100);
+        Assert.Equal(expectedCardInfo, cardInfo);
     }
 }

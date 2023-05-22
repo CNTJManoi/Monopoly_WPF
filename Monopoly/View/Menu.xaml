@@ -1,37 +1,39 @@
 ﻿<UserControl x:Class="Monopoly.View.Menu"
-         xmlns="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-         xmlns:vm="clr-namespace:Monopoly.ViewModel"
-         xmlns:v="clr-namespace:Monopoly.View"
-        xmlns:resources="clr-namespace:Monopoly.Properties" 
-     xmlns:viewmodels="clr-namespace:Monopoly.ViewModel"
-            >
+             xmlns="http://schemas.microsoft.com/netfx/2009/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:resources="clr-namespace:Monopoly.Properties">
     <UserControl.Background>
-        <ImageBrush ImageSource="/Monopoly;component/Data/Images/MenuPic.jpg"></ImageBrush>
+        <ImageBrush ImageSource="/Monopoly;component/Data/Images/MenuPic.jpg" />
     </UserControl.Background>
 
     <Grid>
-        <Button Content="{Binding Source={x:Static resources:Language.newgame}}"  Command="{Binding StartNewGameCommand}" HorizontalAlignment="Left" Height="67" Margin="55,198,0,0" VerticalAlignment="Top" Width="157" />
-        <Button Content="{Binding Source={x:Static resources:Language.loadgame}}" Command="{Binding OpenFileCommand}" HorizontalAlignment="Left" Height="67" Margin="605,198,0,0" VerticalAlignment="Top" Width="157"/>
-        <ComboBox Name="PlayerBox" ItemsSource="{Binding MaxPlayers}" HorizontalAlignment="Left" 
-                  SelectedValue="{Binding TotalPlayers}" Height="25" Margin="170,168,0,0" VerticalAlignment="Top" Width="42" IsReadOnly="True"/>
-        <Label Content="{Binding Source={x:Static resources:Language.totalplayers}}" HorizontalAlignment="Left" Height="25" Margin="40,168,0,0" VerticalAlignment="Top"/>
-        <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}" HorizontalAlignment="Left" Height="28" Margin="55,288,0,0" VerticalAlignment="Top" Width="157"/>
+        <Button Content="{Binding Source={x:Static resources:Language.newgame}}"
+                Command="{Binding StartNewGameCommand}" HorizontalAlignment="Left" Height="67" Margin="55,198,0,0"
+                VerticalAlignment="Top" Width="157" />
+        <Button Content="{Binding Source={x:Static resources:Language.loadgame}}" Command="{Binding OpenFileCommand}"
+                HorizontalAlignment="Left" Height="67" Margin="605,198,0,0" VerticalAlignment="Top" Width="157" />
+        <ComboBox Name="PlayerBox" ItemsSource="{Binding MaxPlayers}" HorizontalAlignment="Left"
+                  SelectedValue="{Binding TotalPlayers}" Height="25" Margin="170,168,0,0" VerticalAlignment="Top"
+                  Width="42" IsReadOnly="True" />
+        <Label Content="{Binding Source={x:Static resources:Language.totalplayers}}" HorizontalAlignment="Left"
+               Height="25" Margin="40,168,0,0" VerticalAlignment="Top" />
+        <ComboBox ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"
+                  HorizontalAlignment="Left" Height="28" Margin="55,288,0,0" VerticalAlignment="Top" Width="157" />
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,332,0,0">
-            <TextBlock Text="Имя 1 игрока: "></TextBlock>
-            <TextBox Width="150" Height="20" Text="{Binding NicknameOnePlayer}"></TextBox>
+            <TextBlock Text="Имя 1 игрока: " />
+            <TextBox Width="150" Height="20" Text="{Binding NicknameOnePlayer}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,357,0,0">
-            <TextBlock Text="Имя 2 игрока: "/>
-            <TextBox Width="150" Height="20" Text="{Binding NicknameTwoPlayer}"/>
+            <TextBlock Text="Имя 2 игрока: " />
+            <TextBox Width="150" Height="20" Text="{Binding NicknameTwoPlayer}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,382,0,0">
-            <TextBlock Text="Имя 3 игрока: "/>
-            <TextBox Width="150" Height="20" Text="{Binding NicknameThreePlayer}"/>
+            <TextBlock Text="Имя 3 игрока: " />
+            <TextBox Width="150" Height="20" Text="{Binding NicknameThreePlayer}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,407,0,0">
-            <TextBlock Text="Имя 4 игрока: "/>
-            <TextBox Width="150" Height="20" Text="{Binding NicknameFourPlayer}"/>
+            <TextBlock Text="Имя 4 игрока: " />
+            <TextBox Width="150" Height="20" Text="{Binding NicknameFourPlayer}" />
         </StackPanel>
 
     </Grid>

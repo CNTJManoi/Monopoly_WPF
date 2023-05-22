@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using Monopoly.Logic.Properties;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Поле, которое отправит игрока в тюрьму
@@ -12,13 +14,13 @@ public class TileGoToJail : Tile
 
     public override void DoAction(Player player)
     {
-        CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
+        CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
         player.CurrentTile = CurrentGame.Jail;
         player.IsInJail = true;
     }
 
     public override string GetCardInformation()
     {
-        return Properties.Language.gotojail;
+        return Language.gotojail;
     }
 }

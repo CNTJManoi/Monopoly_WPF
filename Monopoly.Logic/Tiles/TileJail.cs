@@ -1,4 +1,6 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using Monopoly.Logic.Properties;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Поле, которое держит игрока в тюрьме.
@@ -14,9 +16,9 @@ public class TileJail : Tile
     public override void DoAction(Player player)
     {
         if (player.JailCounter != 0)
-            CurrentGame.AddInfo(string.Format(Properties.Language.jailperson, player.Name));
+            CurrentGame.AddInfo(string.Format(Language.jailperson, player.Name));
         else
-            CurrentGame.AddInfo(string.Format(Properties.Language.moves, player.Name, Description));
+            CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
 
         player.JailCounter++;
         if (CurrentGame.PlayerDice.IsDouble() || player.JailCounter == 3)
@@ -29,6 +31,6 @@ public class TileJail : Tile
 
     public override string GetCardInformation()
     {
-        return Properties.Language.jail;
+        return Language.jail;
     }
 }

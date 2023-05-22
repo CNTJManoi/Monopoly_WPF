@@ -1,17 +1,14 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 
+namespace Monopoly.View;
 
-namespace Monopoly.View
+/// <summary>
+///     Interaction logic for Menu.xaml
+/// </summary>
+public partial class Menu : UserControl
 {
-    /// <summary>
-    /// Interaction logic for Menu.xaml
-    /// </summary>
-    public partial class Menu : UserControl
+    public Menu()
     {
-        public Menu()
-        {
-            InitializeComponent();
-        }
+        InitializeComponent();
     }
 }
