@@ -14,6 +14,9 @@ public class TileCommunityTests
         var game = new Game(2);
         game.InitNewGame(2);
         var player = game.Players[0];
+        Configuration _configFile = new Configuration(game);
+        var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+        game.GetCards(cards);
         player.MoveTo(2);
 
         // Assert

@@ -28,7 +28,9 @@ public class GameTests
     {
         // Arrange
         var game = new Game(2);
-
+        Configuration _configFile = new Configuration(game);
+        var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+        game.GetCards(cards);
         // Act
         game.InitNewGame(2);
 
@@ -88,6 +90,9 @@ public class GameTests
         var game = new Game(2);
         game.InitNewGame(2);
         var player = game.CurrentPlayer;
+        Configuration _configFile = new Configuration(game);
+        var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+        game.GetCards(cards);
 
 
         // Act
@@ -109,6 +114,9 @@ public class GameTests
         var game = new Game(2);
         game.InitNewGame(2);
         var player = game.CurrentPlayer;
+        Configuration _configFile = new Configuration(game);
+        var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+        game.GetCards(cards);
 
         // Act
         game.ThrowDiceAndMovePlayer();
@@ -125,6 +133,9 @@ public class GameTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        Configuration _configFile = new Configuration(game);
+        var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+        game.GetCards(cards);
         game.Players[0].MoveTo(3);
 
         // Act
@@ -175,8 +186,12 @@ public class GameTests
         g.InitNewGame(2);
         var game = new Game(2);
         game.InitNewGame(2);
+        Configuration _configFile = new Configuration(game);
+        var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+        game.GetCards(cards);
         do
         {
+            game.PlayerDice.HasBeenThrown = false;
             game.ThrowDiceAndMovePlayer();
         } while (game.PlayerDice.FirstDice == game.PlayerDice.SecondDice);
         // Act
