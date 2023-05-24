@@ -9,15 +9,17 @@ namespace Monopoly.Logic;
 /// </summary>
 public class Configuration
 {
+    private TileGoToJail _goToJail;
+    private TileProperty _boardwalk;
     public Configuration(Game game)
     {
         CurrentGame = game;
         var directoryInfo = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
+        // todo: странная логика, как будто перепутано условие. Не стоит вбивать пути к файлам в исходный код
         if (directoryInfo != null) FileName = @"C:\Users\lecha\Desktop\Monopoly-master\Monopoly\Data\";
     }
-
     public string FileName { get; set; }
-    public Game CurrentGame { get; }
+    private Game CurrentGame { get; }
 
     public List<Card> GetAllCards(string cardLocation)
     {
@@ -31,11 +33,11 @@ public class Configuration
             {
                 case "move":
                     if (lineInfo[2].Equals("Boardwalk"))
-                        cards.Add(new CardMove(lineInfo[1], CurrentGame.Boardwalk));
+                        cards.Add(new CardMove(lineInfo[1], _boardwalk));
                     else if (lineInfo[2].Equals("Start"))
                         cards.Add(new CardMove(lineInfo[1], CurrentGame.Start));
                     else if (lineInfo[2].Equals("Jail"))
-                        cards.Add(new CardMove(lineInfo[1], CurrentGame.GoToJail));
+                        cards.Add(new CardMove(lineInfo[1], _goToJail));
                     else
                         cards.Add(new CardMove(lineInfo[1], int.Parse(lineInfo[2])));
                     break;
@@ -108,7 +110,7 @@ public class Configuration
             new[] { 28, 150, 450, 1000, 1200, 1400 }, 160, 320, 200, green);
         var parkPlace = new TileProperty(CurrentGame, "Park Place", new[] { 35, 175, 500, 1100, 1300, 1500 }, 175, 350,
             200, blue);
-        CurrentGame.Boardwalk = new TileProperty(CurrentGame, "Boardwalk", new[] { 50, 200, 600, 1400, 1700, 2000 },
+        _boardwalk = new TileProperty(CurrentGame, "Boardwalk", new[] { 50, 200, 600, 1400, 1700, 2000 },
             200, 400, 200, blue);
 
         purple.Streets.Add(medAvenue);
@@ -132,17 +134,17 @@ public class Configuration
         green.Streets.Add(northCaAvnue);
         green.Streets.Add(pennsyAvenue);
         blue.Streets.Add(parkPlace);
-        blue.Streets.Add(CurrentGame.Boardwalk);
+        blue.Streets.Add(_boardwalk);
 
         CurrentGame.JailVisit = new TileJailVisit(CurrentGame, "Jail visit");
         CurrentGame.Jail = new TileJail(CurrentGame, "Jail");
-        CurrentGame.GoToJail = new TileGoToJail(CurrentGame, "Go to jail");
+        _goToJail = new TileGoToJail(CurrentGame, "Go to jail");
 
         CurrentGame.Start = new TileStart(CurrentGame, "Start");
-        CurrentGame.Boardwalk.NextTile = CurrentGame.Start;
-        CurrentGame.Start.PreviousTile = CurrentGame.Boardwalk;
+        _boardwalk.NextTile = CurrentGame.Start;
+        CurrentGame.Start.PreviousTile = _boardwalk;
 
-        board.Add(CurrentGame.Boardwalk);
+        board.Add(_boardwalk);
         board.Add(new TileTaxes(CurrentGame, "Luxury Tax"));
         board.Add(parkPlace);
         board.Add(new TileChance(CurrentGame, "Chance Card"));
@@ -151,7 +153,7 @@ public class Configuration
         board.Add(new TileCommunity(CurrentGame, "Community Chest"));
         board.Add(northCaAvnue);
         board.Add(pacifAvenue);
-        board.Add(CurrentGame.GoToJail);
+        board.Add(_goToJail);
         board.Add(marvinGardens);
         board.Add(new TileCompany(CurrentGame, "Water Works", 75, 150));
         board.Add(ventnAvenue);

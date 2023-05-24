@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using Monopoly.Logic.Tiles;
 
 namespace Monopoly.Logic;
@@ -7,7 +8,7 @@ namespace Monopoly.Logic;
 /// <summary>
 ///     Класс, содержащий данные и методы для игрока.
 /// </summary>
-public class Player : INotifyPropertyChanged
+public class Player : PropertyNotificator
 {
     private int _money;
 
@@ -30,6 +31,7 @@ public class Player : INotifyPropertyChanged
     public Game CurrentGame { get; }
 
     public int DiceEyes { get; set; }
+    // todo: лучше было бы, если бы свойства TotalCompanies и TotalRailRoads были вычислимыми из коллекции Streets
     public int TotalCompanies { get; private set; }
     public bool IsInJail { get; set; }
     public int JailCounter { get; set; }
@@ -56,13 +58,18 @@ public class Player : INotifyPropertyChanged
         }
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
-
     public void PayMoneyTo(Player otherplayer, int moneyToPay)
     {
-        if (Money - moneyToPay < 0) throw new ArgumentException("Недостаточно денег для оплаты аренды!");
-        Money -= moneyToPay;
-        otherplayer.Money += moneyToPay;
+        if (Money - moneyToPay < 0)
+        {
+            otherplayer.Money += Money;
+            Money = 0;
+        }
+        else
+        {
+            Money -= moneyToPay;
+            otherplayer.Money += moneyToPay;
+        }
     }
 
     /// <summary>
@@ -116,8 +123,20 @@ public class Player : INotifyPropertyChanged
         }
     }
 
-    public void RaisePropertyChanged(string prop)
+    public void GoToJail()
     {
-        if (PropertyChanged != null) PropertyChanged(this, new PropertyChangedEventArgs(prop));
+        CurrentTile = CurrentGame.Jail;
+        IsInJail = true;
+    }
+
+    public void CheckOutJail()
+    {
+        JailCounter++;
+        if (CurrentGame.PlayerDice.IsDouble() || JailCounter == 3)
+        {
+            MoveTo(CurrentGame.JailVisit);
+            IsInJail = false;
+            JailCounter = 0;
+        }
     }
 }

@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using Microsoft.Win32;
+using Monopoly.Data;
+using Monopoly.Logic;
 
 namespace Monopoly.ViewModel;
 
@@ -11,12 +14,15 @@ namespace Monopoly.ViewModel;
 public class MenuViewModel : BasicViewModel
 {
     private readonly MainWindowViewModel _mainViewModel;
+    private Configuration _configFile;
+    private Game _game;
 
     public MenuViewModel(MainWindowViewModel model)
     {
         MaxPlayers = new List<int> { 2, 3, 4 };
         Languages = new[] { "Russian" };
         _mainViewModel = model;
+        
     }
 
     # region Commands
@@ -64,7 +70,11 @@ public class MenuViewModel : BasicViewModel
         var nickname4 = "";
         if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname4 = NicknameFourPlayer;
         else nickname1 = "Player4";
-        var gmv = new GameViewModel(TotalPlayers, _mainViewModel, nickname1, nickname2, nickname3, nickname4);
+        _game = new Game(TotalPlayers, nickname1, nickname2, nickname3, nickname4);
+        _configFile = new Configuration(_game);
+        var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+        _game.GetCards(cards);
+        var gmv = new GameViewModel(_mainViewModel, _game);
         _mainViewModel.GoToViewModel(gmv);
     }
 
@@ -72,27 +82,17 @@ public class MenuViewModel : BasicViewModel
     {
         return TotalPlayers >= 2;
     }
-
     public void OpenFile()
     {
-        var directoryInfo = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
-        var filename = string.Empty;
-
-        if (directoryInfo != null)
+        FileUploader fu = new FileUploader();
+        var path = fu.GetFilePath();
+        if (path != "")
         {
-            var dlg = new OpenFileDialog
-            {
-                Filter = "Monopoly Files (*.poly)|*.poly",
-                InitialDirectory = directoryInfo.FullName + @"\Data\Saves\"
-            };
-
-            dlg.ShowDialog();
-            filename = dlg.FileName;
-        }
-
-        if (!string.IsNullOrEmpty(filename) && filename.Contains(".poly"))
-        {
-            var gmv = new GameViewModel(filename, _mainViewModel);
+            _game = new Game(path);
+            _configFile = new Configuration(_game);
+            var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
+            _game.GetCards(cards);
+            var gmv = new GameViewModel(_mainViewModel, _game);
             _mainViewModel.GoToViewModel(gmv);
         }
     }

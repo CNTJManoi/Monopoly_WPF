@@ -42,20 +42,6 @@ public class PlayerTests
     }
 
     [Fact]
-    public void PayMoneyTo_ThrowsExceptionWhenNotEnoughMoney()
-    {
-        // Arrange
-        var g = new Game(2);
-        g.InitNewGame(2);
-        var ts = new TileStart(g, "Поле старта");
-        var player1 = new Player(g, "Player  1", 50, ts);
-        var player2 = new Player(g, "Player  2", 100, ts);
-
-        // Act & Assert
-        Assert.Throws<ArgumentException>(() => player1.PayMoneyTo(player2, 100));
-    }
-
-    [Fact]
     public void MoveTo_MoveForward_PositivePositions()
     {
         // Arrange

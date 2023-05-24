@@ -7,40 +7,41 @@ namespace Monopoly.Logic;
 /// </summary>
 public class Deck
 {
+    private int _top;
     public Deck(List<Card> cards)
     {
         Cards = cards.ToArray();
         NewCardArray = Cards;
         Shuffle();
 
-        Top = cards.Count - 1;
+        _top = cards.Count - 1;
     }
 
     public Card[] Cards { get; private set; }
     public Card[] NewCardArray { get; }
-    public int Top { get; private set; }
 
     public void Push(Card card)
     {
-        if (Top + 1 < Cards.Length)
+        if (_top + 1 < Cards.Length)
         {
-            Top++;
-            Cards[Top] = card;
+            _top++;
+            Cards[_top] = card;
         }
     }
 
+    // todo: реализация колоды через стек кажется более логичной. Тогда не пришлось бы следить за переменной _top
 
     public Card Peek()
     {
-        return !IsEmpty() ? Cards[Top] : null;
+        return !IsEmpty() ? Cards[_top] : null;
     }
 
     public Card Pop()
     {
         if (!IsEmpty())
         {
-            Top--;
-            return Cards[Top + 1];
+            _top--;
+            return Cards[_top + 1];
         }
 
         return null;
@@ -48,10 +49,10 @@ public class Deck
 
     public bool IsEmpty()
     {
-        if (Top == -1)
+        if (_top == -1)
         {
             Cards = NewCardArray;
-            Top = Cards.Length - 1;
+            _top = Cards.Length - 1;
             return true;
         }
 

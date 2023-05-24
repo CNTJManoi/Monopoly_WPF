@@ -25,18 +25,21 @@ public class DiceTests
     {
         // Arrange
         var dice = new Dice();
-        dice.FirstDice = 3;
-        dice.SecondDice = 3;
+        do
+        {
+            dice.ThrowDice();
+        } while (dice.FirstDice != dice.SecondDice);
 
         // Act
         var result = dice.IsDouble();
 
         // Assert
         Assert.True(result);
-
+        do
+        {
+            dice.ThrowDice();
+        } while (dice.FirstDice == dice.SecondDice);
         // Arrange
-        dice.FirstDice = 1;
-        dice.SecondDice = 2;
 
         // Act
         result = dice.IsDouble();

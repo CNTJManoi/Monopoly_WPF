@@ -16,8 +16,8 @@ public class ManageStreetsViewModel : BasicViewModel
         _mainWindowViewModel = mainWindow;
         _gameView = gameView;
     }
-
-    public Game Game { get; set; }
+    
+    private Game Game { get; }
     public TileProperty SelectedTile { get; set; }
 
     #region Commands
@@ -64,6 +64,7 @@ public class ManageStreetsViewModel : BasicViewModel
 
     private void DoUpgradeCommand()
     {
+        // todo: условие сложное и должно быть выделено в метод, который следует разместить в слое БЛ
         if (SelectedTile != null &&
             ((SelectedTile != null && SelectedTile.City.OwnsAllProperties(Game.CurrentPlayer) &&
               SelectedTile.CanBeUpgraded()) || SelectedTile.OnMortage))

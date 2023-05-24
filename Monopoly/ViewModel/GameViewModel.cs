@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Windows.Input;
 using Microsoft.Win32;
+using Monopoly.Data;
 using Monopoly.Logic;
 using Monopoly.Logic.Tiles;
 
@@ -15,30 +16,17 @@ namespace Monopoly.ViewModel;
 public class GameViewModel : BasicViewModel
 {
     private readonly MainWindowViewModel _mainViewModel;
-
-    public GameViewModel(int totalPlayers, MainWindowViewModel _mainModel, string name1 = "Player1",
-        string name2 = "Player2", string name3 = "Player3", string name4 = "Player4")
+    private FileUploader _fileUploader;
+    public GameViewModel(MainWindowViewModel _mainModel, Game game)
     {
+        _fileUploader = new FileUploader();
         GameIsFinished = false;
-        MyGame = new Game(totalPlayers, name1, name2, name3, name4);
+        MyGame = game;
         BuildingPositions = MyGame.ToBoardWithBuildingArray();
         DiceAmount = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
         PlayerList = new string[MyGame.Players.Count];
-        for (var x = 0; x < MyGame.Players.Count; x++) PlayerList[x] = MyGame.Players[x].Name;
-
-        UpdatePlayersTimer = new Timer(Timer_Tick, null, 0, 1000);
-        Cheat = true;
-        _mainViewModel = _mainModel;
-    }
-
-    public GameViewModel(string file, MainWindowViewModel _mainModel)
-    {
-        MyGame = new Game(file);
-        BuildingPositions = MyGame.ToBoardWithBuildingArray();
-        DiceAmount = new[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12 };
-        PlayerList = new string[MyGame.Players.Count];
-
-        for (var x = 0; x < MyGame.Players.Count; x++) PlayerList[x] = MyGame.Players[x].Name;
+        for (var x = 0; x < MyGame.Players.Count; x++) 
+            PlayerList[x] = MyGame.Players[x].Name;
         UpdatePlayersTimer = new Timer(Timer_Tick, null, 0, 1000);
         Cheat = true;
         _mainViewModel = _mainModel;
@@ -52,10 +40,27 @@ public class GameViewModel : BasicViewModel
     {
         BuildingPositions = MyGame.ToBoardWithBuildingArray();
         PlayerPostions = MyGame.ToBoardWithPlayersArray();
-        ToolTipForTiles = MyGame.GetToolTipInfo();
+        ToolTipForTiles = GetToolTipInfo();
     }
 
+    /// <summary>
+    ///     получает информацию, которая будет использоваться во всплывающих подсказках
+    /// </summary>
+    /// <returns></returns>
+    private ObservableCollection<string> GetToolTipInfo()
+    {
+        var info = new ObservableCollection<string>();
 
+        var current = MyGame.Board.Head;
+        for (var i = 0; i < MyGame.Board.Size; i++)
+        {
+            info.Add(current.GetCardInformation());
+            current = current.NextTile;
+        }
+
+        info.Add(MyGame.Jail.GetCardInformation());
+        return info;
+    }
     public void OnWindowClosing(object sender, CancelEventArgs e)
     {
         if (!GameIsFinished)
@@ -73,7 +78,7 @@ public class GameViewModel : BasicViewModel
                 filename = dlg.FileName;
             }
 
-            if (!string.IsNullOrEmpty(filename) && filename.Contains(".poly")) MyGame.SaveData(filename);
+            if (!string.IsNullOrEmpty(filename) && filename.Contains(".poly")) _fileUploader.SaveData(MyGame.Configuration, filename);
         }
     }
 
@@ -88,7 +93,7 @@ public class GameViewModel : BasicViewModel
             return _throwDiceCommand ??
                    (_throwDiceCommand =
                        new RelayCommand(p => MyGame.ThrowDiceAndMovePlayer(),
-                           p => !MyGame.PlayerDice.HasBeenThrown));
+                           p => !MyGame.PlayerDice.HasBeenThrown)); // todo: нарушение закона Деметры. лучше добавиьт в Game метод IsMovePossible
         }
     }
 
@@ -186,8 +191,7 @@ public class GameViewModel : BasicViewModel
         var manager = new ManageStreetsViewModel(MyGame, _mainViewModel, this);
         _mainViewModel.GoToViewModel(manager);
     }
-
-    public bool CanBuy()
+    private bool CanBuy()
     {
         if (!MyGame.CurrentPlayer.CurrentTile.HasOwner)
         {
@@ -197,24 +201,14 @@ public class GameViewModel : BasicViewModel
 
         return false;
     }
-
-
-    public bool CanEndTurn()
+    private bool CanEndTurn()
     {
-        if (MyGame.PlayerDice.HasBeenThrown && !MyGame.PlayerDice.IsDouble() &&
-            MyGame.CurrentPlayer.Money >= 0) return true;
-        if (MyGame.PlayerDice.IsDouble())
-        {
-            MyGame.PlayerDice.HasBeenThrown = false;
-            return false;
-        }
-
-        return false;
+        return MyGame.CanEndTurn();
     }
 
     private void ChangePlayer(int index)
     {
-        MyGame.CurrentPlayer = MyGame.Players[index];
+        MyGame.ChangePlayer(index);
     }
 
     #endregion

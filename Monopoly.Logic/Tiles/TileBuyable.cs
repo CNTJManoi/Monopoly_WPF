@@ -71,6 +71,8 @@ public abstract class TileBuyable : Tile, IBuyable
     {
         if (TotalUpgrades > 1)
         {
+            // todo: вместо string.Format лучше использовать интреполированные строки ($"")
+            // в этом слечае не будут производиться операции упаковки и распаковки
             CurrentGame.AddInfo(string.Format(Language.downgrade, Owner.Name, Description));
             TotalUpgrades--;
             Owner.Money += UpgradeCost;

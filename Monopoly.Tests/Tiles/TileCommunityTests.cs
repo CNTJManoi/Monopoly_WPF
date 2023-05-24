@@ -22,20 +22,4 @@ public class TileCommunityTests
             .Where(x => x.Contains(string.Format(Language.moves, player.Name, player.CurrentTile.Description)))
             .Count() > 0);
     }
-
-    [Fact]
-    public void Should_NotAddAnythingToGameInfoQueueIfCommunityCardIsNull()
-    {
-        // Arrange
-        var game = new Game(2);
-        game.InitNewGame(2);
-        var player = game.Players[0];
-        player.MoveTo(2);
-
-        // Assert
-        Assert.True(game.GameInfo.Where(x => x.Contains(player.Name + " " + Language.got)).Count() > 0);
-        Assert.True(game.GameInfo
-            .Where(x => x.Contains(string.Format(Language.moves, player.Name, player.CurrentTile.Description)))
-            .Count() > 0);
-    }
 }

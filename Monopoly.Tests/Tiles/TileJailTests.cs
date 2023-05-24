@@ -53,9 +53,12 @@ public class TileJailTests
 
         game.CurrentPlayer.IsInJail = true;
         game.CurrentPlayer.JailCounter = 1;
-
-        game.PlayerDice.FirstDice = 2;
-        game.PlayerDice.SecondDice = 2;
+        do
+        {
+            game.PlayerDice.HasBeenThrown = false;
+            game.ThrowDiceAndMovePlayer();
+        } while (game.PlayerDice.FirstDice != game.PlayerDice.SecondDice);
+        
 
         // Act
         tile.DoAction(game.CurrentPlayer);
@@ -77,8 +80,11 @@ public class TileJailTests
         game.CurrentPlayer.IsInJail = true;
         game.CurrentPlayer.JailCounter = 2;
 
-        game.PlayerDice.FirstDice = 1;
-        game.PlayerDice.SecondDice = 2;
+        do
+        {
+            game.PlayerDice.HasBeenThrown = false;
+            game.ThrowDiceAndMovePlayer();
+        } while (game.PlayerDice.FirstDice == game.PlayerDice.SecondDice);
 
         // Act
         tile.DoAction(game.CurrentPlayer);

@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly", "Monopoly\Monopo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly.Logic", "Monopoly.Logic\Monopoly.Logic.csproj", "{B19B456F-65B0-4052-A78B-0725D36B8DC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.Tests", "Monopoly.Tests\Monopoly.Tests.csproj", "{4B04A0C8-2DA7-42EF-8EF0-827371EBC270}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly.Tests", "Monopoly.Tests\Monopoly.Tests.csproj", "{4B04A0C8-2DA7-42EF-8EF0-827371EBC270}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

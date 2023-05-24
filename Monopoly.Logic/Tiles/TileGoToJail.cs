@@ -15,8 +15,7 @@ public class TileGoToJail : Tile
     public override void DoAction(Player player)
     {
         CurrentGame.AddInfo(string.Format(Language.moves, player.Name, Description));
-        player.CurrentTile = CurrentGame.Jail;
-        player.IsInJail = true;
+        player.GoToJail();
     }
 
     public override string GetCardInformation()

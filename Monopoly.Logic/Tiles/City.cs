@@ -21,13 +21,18 @@ public class City
     /// <returns></returns>
     public bool OwnsAllProperties(Player player)
     {
-        if (Streets.Count == 2)
+        bool AllProp = true;
+        foreach (var street in Streets)
         {
-            if (Streets.ElementAt(0).HasOwner && Streets.ElementAt(1).HasOwner)
-                return Streets.ElementAt(0).Owner.Equals(player) && Streets.ElementAt(1).Owner.Equals(player);
+            if (street.HasOwner) continue;
+            else AllProp = false;
         }
-        else if (Streets.Count == 3 && Streets.ElementAt(0).HasOwner && Streets.ElementAt(1).HasOwner &&
-                 Streets.ElementAt(2).HasOwner)
+
+        if (AllProp && Streets.Count == 2)
+        {
+            return Streets.ElementAt(0).Owner.Equals(player) && Streets.ElementAt(1).Owner.Equals(player);
+        }
+        if(AllProp && Streets.Count == 3)
         {
             return Streets.ElementAt(0).Owner.Equals(player) && Streets.ElementAt(1).Owner.Equals(player) &&
                    Streets.ElementAt(2).Owner.Equals(player);

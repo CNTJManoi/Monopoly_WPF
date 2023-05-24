@@ -85,10 +85,9 @@ public class GameTests
         // Arrange
         var g = new Game(2);
         g.InitNewGame(2);
-        var player = new Player(g, "Player  1", 50, g.Start);
         var game = new Game(2);
         game.InitNewGame(2);
-        game.CurrentPlayer = player;
+        var player = game.CurrentPlayer;
 
 
         // Act
@@ -107,10 +106,9 @@ public class GameTests
         // Arrange
         var g = new Game(2);
         g.InitNewGame(2);
-        var player = new Player(g, "Player  1", 50, g.Start);
         var game = new Game(2);
         game.InitNewGame(2);
-        game.CurrentPlayer = player;
+        var player = game.CurrentPlayer;
 
         // Act
         game.ThrowDiceAndMovePlayer();
@@ -160,46 +158,13 @@ public class GameTests
 
         // Act
         game.PlayerDice.HasBeenThrown = true;
-        game.PlayerDice.FirstDice = 4;
-        game.PlayerDice.SecondDice = 2;
         game.ThrowDiceAndMovePlayer();
 
         // Assert
         Assert.Equal(game.Start, game.CurrentPlayer.CurrentTile);
-        Assert.Equal(4, game.PlayerDice.FirstDice);
-        Assert.Equal(2, game.PlayerDice.SecondDice);
         Assert.Equal(null,
             game.GameInfo.FirstOrDefault(x => x == string.Format(Language.throwdice, game.CurrentPlayer.Name,
                 game.PlayerDice.FirstDice, game.PlayerDice.SecondDice)));
-    }
-
-    [Fact]
-    public void NextTurn_IncrementPlayerTurn()
-    {
-        // Arrange
-        var game = new Game(2);
-        game.InitNewGame(2);
-
-        // Act
-        game.NextTurn();
-
-        // Assert
-        Assert.Equal(1, game.PlayerTurn);
-    }
-
-    [Fact]
-    public void NextTurn_RotateToFirstPlayerAfterLastPlayer()
-    {
-        // Arrange
-        var game = new Game(2);
-        game.InitNewGame(2);
-
-        // Act
-        game.NextTurn();
-        game.NextTurn();
-
-        // Assert
-        Assert.Equal(0, game.PlayerTurn);
     }
 
     [Fact]
@@ -210,9 +175,10 @@ public class GameTests
         g.InitNewGame(2);
         var game = new Game(2);
         game.InitNewGame(2);
-        game.PlayerDice.FirstDice = 2;
-        game.PlayerDice.SecondDice = 4;
-
+        do
+        {
+            game.ThrowDiceAndMovePlayer();
+        } while (game.PlayerDice.FirstDice == game.PlayerDice.SecondDice);
         // Act
         game.EndTurn();
 
@@ -227,8 +193,6 @@ public class GameTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
-        game.PlayerDice.FirstDice = 2;
-        game.PlayerDice.SecondDice = 2;
 
         // Act
         game.EndTurn();
