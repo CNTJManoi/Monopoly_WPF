@@ -64,31 +64,12 @@ public class ManageStreetsViewModel : BasicViewModel
 
     private void DoUpgradeCommand()
     {
-        // todo: условие сложное и должно быть выделено в метод, который следует разместить в слое БЛ
-        if (SelectedTile != null &&
-            ((SelectedTile != null && SelectedTile.City.OwnsAllProperties(Game.CurrentPlayer) &&
-              SelectedTile.CanBeUpgraded()) || SelectedTile.OnMortage))
-            SelectedTile.Upgrade();
-        else if (SelectedTile == null)
-            MessageBox.Show("Выберите обновляемый элемент в списке.");
-        else if (SelectedTile != null && !SelectedTile.City.OwnsAllProperties(Game.CurrentPlayer))
-            MessageBox.Show("Прежде чем начать строительство домов, необходимо иметь все дома на улице.");
-        else if (!SelectedTile.CanBeUpgraded())
-            MessageBox.Show(
-                "Сначала вы должны иметь на всех улицах одинаковое количество домов, прежде чем сможете модернизировать эту улицу!");
+        MessageBox.Show(Game.DoUpgrade(SelectedTile));
     }
 
     private void DoDowngradeCommand()
     {
-        if (SelectedTile != null && SelectedTile.CanBeDowngraded())
-            SelectedTile.Downgrade();
-        else if (SelectedTile == null)
-            MessageBox.Show("Выберите улицу, которую вы хотите понизить, пожалуйста");
-        else if (SelectedTile.OnMortage)
-            MessageBox.Show("Это здание нельзя понижать еще больше!");
-        else if (!SelectedTile.CanBeDowngraded())
-            MessageBox.Show(
-                "Сначала все улицы должны иметь одинаковое количество домов, прежде чем вы сможете понизить уровень этой улицы!");
+        MessageBox.Show(Game.DoDowngrade(SelectedTile));
     }
 
     private void Exit()

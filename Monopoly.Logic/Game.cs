@@ -288,5 +288,41 @@ public class Game : PropertyNotificator
         return false;
     }
 
+    public string DoUpgrade(TileProperty SelectedTile)
+    {
+        if (SelectedTile != null &&
+            ((SelectedTile != null && SelectedTile.City.OwnsAllProperties(CurrentPlayer) &&
+              SelectedTile.CanBeUpgraded()) || SelectedTile.OnMortage))
+        {
+            SelectedTile.Upgrade();
+            return "Успешно!";
+        }
+        if (SelectedTile == null)
+            return "Выберите обновляемый элемент в списке.";
+        if (SelectedTile != null && !SelectedTile.City.OwnsAllProperties(CurrentPlayer))
+            return "Прежде чем начать строительство домов, необходимо иметь все дома на улице.";
+        if (!SelectedTile.CanBeUpgraded())
+            return
+                "Сначала вы должны иметь на всех улицах одинаковое количество домов, прежде чем сможете модернизировать эту улицу!";
+        return "Успешно!";
+    }
+
+    public string DoDowngrade(TileProperty SelectedTile)
+    {
+        if (SelectedTile != null && SelectedTile.CanBeDowngraded())
+        {
+            SelectedTile.Downgrade();
+            return "Успешно";
+        }
+        
+        else if (SelectedTile == null)
+            return "Выберите улицу, которую вы хотите понизить, пожалуйста";
+        else if (SelectedTile.OnMortage)
+            return "Это здание нельзя понижать еще больше!";
+        else if (!SelectedTile.CanBeDowngraded())
+            return
+                "Сначала все улицы должны иметь одинаковое количество домов, прежде чем вы сможете понизить уровень этой улицы!";
+        return "Успешно";
+    }
     #endregion
 }

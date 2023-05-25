@@ -14,9 +14,8 @@ public class Configuration
     public Configuration(Game game)
     {
         CurrentGame = game;
-        var directoryInfo = Directory.GetParent(Directory.GetCurrentDirectory()).Parent;
-        // todo: странная логика, как будто перепутано условие. Не стоит вбивать пути к файлам в исходный код
-        if (directoryInfo != null) FileName = @"C:\Users\lecha\Desktop\Monopoly-master\Monopoly\Data\";
+        var directoryInfo = Directory.GetCurrentDirectory();
+        if (directoryInfo != null) FileName = directoryInfo + @"\Data\";
     }
     public string FileName { get; set; }
     private Game CurrentGame { get; }

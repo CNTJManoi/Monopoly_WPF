@@ -31,11 +31,10 @@ public class Player : PropertyNotificator
     public Game CurrentGame { get; }
 
     public int DiceEyes { get; set; }
-    // todo: лучше было бы, если бы свойства TotalCompanies и TotalRailRoads были вычислимыми из коллекции Streets
     public int TotalCompanies { get; private set; }
     public bool IsInJail { get; set; }
     public int JailCounter { get; set; }
-    public int TotalRailRoads { get; set; }
+    public int TotalRailRoads { get; private set; }
     public ObservableCollection<Tile> Streets { get; set; }
 
     public string PlayerInfo
@@ -116,11 +115,22 @@ public class Player : PropertyNotificator
             street.Owner = this;
             Streets.Add(street);
             CurrentGame.AddInfo(string.Format("{0} купил {1}", Name, street.Description));
-            ;
-            if (street is TileCompany)
-                TotalCompanies++;
-            else if (street is TileRailRoad) TotalRailRoads++;
+            UpdateCountCompanyAndTileRailRoad();
         }
+    }
+
+    private void UpdateCountCompanyAndTileRailRoad()
+    {
+        int companyCount = 0;
+        int railRoadCount = 0;
+        foreach (var street in Streets)
+        {
+            if (street is TileCompany) companyCount++;
+            else if(street is TileRailRoad) railRoadCount++;
+        }
+
+        TotalCompanies = companyCount;
+        TotalRailRoads = railRoadCount;
     }
 
     public void GoToJail()

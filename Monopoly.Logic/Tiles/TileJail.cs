@@ -15,9 +15,6 @@ public class TileJail : Tile
 
     public override void DoAction(Player player)
     {
-        // todo:  возможно стоит рассмотреть перенос логики в класс Player.
-        // тогда не придётся следить за переменной JailCounter
-        // либо наоборот вынести проверку того, сколько ходов какой игрок находится в тюрьме в данный класс
         if (player.JailCounter != 0)
             CurrentGame.AddInfo(string.Format(Language.jailperson, player.Name));
         else
