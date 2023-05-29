@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Input;
 using Microsoft.Win32;
 using Monopoly.Data;
+using Monopoly.Database;
 using Monopoly.Logic;
 
 namespace Monopoly.ViewModel;
@@ -16,13 +17,14 @@ public class MenuViewModel : BasicViewModel
     private readonly MainWindowViewModel _mainViewModel;
     private Configuration _configFile;
     private Game _game;
+    private DatabaseController _databaseController;
 
     public MenuViewModel(MainWindowViewModel model)
     {
         MaxPlayers = new List<int> { 2, 3, 4 };
         Languages = new[] { "Russian" };
         _mainViewModel = model;
-        
+        _databaseController = new DatabaseController();
     }
 
     # region Commands
@@ -74,7 +76,7 @@ public class MenuViewModel : BasicViewModel
         _configFile = new Configuration(_game);
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
         _game.GetCards(cards);
-        var gmv = new GameViewModel(_mainViewModel, _game);
+        var gmv = new GameViewModel(_mainViewModel, _game, _databaseController);
         _mainViewModel.GoToViewModel(gmv);
     }
 
@@ -92,7 +94,7 @@ public class MenuViewModel : BasicViewModel
             _configFile = new Configuration(_game);
             var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
             _game.GetCards(cards);
-            var gmv = new GameViewModel(_mainViewModel, _game);
+            var gmv = new GameViewModel(_mainViewModel, _game, _databaseController);
             _mainViewModel.GoToViewModel(gmv);
         }
     }

@@ -90,6 +90,8 @@
     <Folder Include="Model\" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Monopoly.Database\Monopoly.Database.csproj" />
+    <ProjectReference Include="..\Monopoly.Json\Monopoly.Json.csproj" />
     <ProjectReference Include="..\Monopoly.Logic\Monopoly.Logic.csproj" />
   </ItemGroup>
   <ItemGroup>

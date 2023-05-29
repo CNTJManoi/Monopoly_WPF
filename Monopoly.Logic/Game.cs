@@ -21,7 +21,8 @@ public class Game : PropertyNotificator
         GameInfo = new QueueLimit<string>(70);
         PlayerDice = new Dice();
         PlayerTurn = 0;
-
+        BeginGame = DateTime.Now;
+        CountMoves = 0;
     }
 
     /// <summary>
@@ -55,7 +56,8 @@ public class Game : PropertyNotificator
     public Deck CommunityCards { get; private set; }
     public Player CurrentPlayer { get; private set; }
     public int PlayerTurn { get; private set; }
-
+    public int CountMoves { get; private set; }
+    public DateTime BeginGame { get; }
     public Dice PlayerDice { get; }
     public QueueLimit<string> GameInfo { get; }
 
@@ -174,7 +176,11 @@ public class Game : PropertyNotificator
     private void NextTurn()
     {
         PlayerTurn++;
-        if (PlayerTurn % Players.Count == 0) PlayerTurn = 0;
+        if (PlayerTurn % Players.Count == 0)
+        {
+            PlayerTurn = 0;
+            CountMoves++;
+        }
         CurrentPlayer = Players[PlayerTurn];
     }
 
@@ -313,7 +319,7 @@ public class Game : PropertyNotificator
         {
             SelectedTile.Downgrade();
             return "Успешно";
-        }
+        } 
         
         else if (SelectedTile == null)
             return "Выберите улицу, которую вы хотите понизить, пожалуйста";
@@ -323,6 +329,11 @@ public class Game : PropertyNotificator
             return
                 "Сначала все улицы должны иметь одинаковое количество домов, прежде чем вы сможете понизить уровень этой улицы!";
         return "Успешно";
+    }
+
+    public bool IsMovePossible()
+    {
+        return PlayerDice.HasBeenThrown;
     }
     #endregion
 }

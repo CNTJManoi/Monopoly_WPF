@@ -5,19 +5,19 @@ using System.Threading;
 using System.Windows.Input;
 using Microsoft.Win32;
 using Monopoly.Data;
+using Monopoly.Database;
+using Monopoly.Json;
 using Monopoly.Logic;
 using Monopoly.Logic.Tiles;
 
 namespace Monopoly.ViewModel;
 
-/// <summary>
-///     A viewmodel for databinding with a view.
-/// </summary>
 public class GameViewModel : BasicViewModel
 {
     private readonly MainWindowViewModel _mainViewModel;
     private FileUploader _fileUploader;
-    public GameViewModel(MainWindowViewModel _mainModel, Game game)
+    private DatabaseController _databaseController;
+    public GameViewModel(MainWindowViewModel _mainModel, Game game, DatabaseController controller)
     {
         _fileUploader = new FileUploader();
         GameIsFinished = false;
@@ -30,6 +30,7 @@ public class GameViewModel : BasicViewModel
         UpdatePlayersTimer = new Timer(Timer_Tick, null, 0, 1000);
         Cheat = true;
         _mainViewModel = _mainModel;
+        _databaseController = controller;
     }
 
     public Game MyGame { get; set; }
@@ -61,7 +62,7 @@ public class GameViewModel : BasicViewModel
         info.Add(MyGame.Jail.GetCardInformation());
         return info;
     }
-    public void OnWindowClosing(object sender, CancelEventArgs e)
+    public void DoSaveGame()
     {
         if (!GameIsFinished)
         {
@@ -93,7 +94,7 @@ public class GameViewModel : BasicViewModel
             return _throwDiceCommand ??
                    (_throwDiceCommand =
                        new RelayCommand(p => MyGame.ThrowDiceAndMovePlayer(),
-                           p => !MyGame.PlayerDice.HasBeenThrown)); // todo: нарушение закона Деметры. лучше добавиьт в Game метод IsMovePossible
+                           p => !MyGame.IsMovePossible()));
         }
     }
 
@@ -168,7 +169,28 @@ public class GameViewModel : BasicViewModel
                        new RelayCommand(p => EndGame()));
         }
     }
+    private ICommand _saveGameInDatabase;
 
+    public ICommand SaveGameInDatabase
+    {
+        get
+        {
+            return _saveGameInDatabase ??
+                   (_saveGameInDatabase =
+                       new RelayCommand(p => _databaseController.AddSavedGame(JsonConverter<Game>.SerializeObject(MyGame))));
+        }
+    }
+    private ICommand _saveGameInFile;
+
+    public ICommand SaveGameInFile
+    {
+        get
+        {
+            return _saveGameInFile ??
+                   (_saveGameInFile =
+                       new RelayCommand(p => DoSaveGame()));
+        }
+    }
     #endregion
 
     #region Command methods
@@ -176,7 +198,7 @@ public class GameViewModel : BasicViewModel
     private void EndGame()
     {
         GameIsFinished = true;
-        var EndViewModel = new EndScreenViewModel(MyGame);
+        var EndViewModel = new EndScreenViewModel(MyGame, _databaseController);
         _mainViewModel.GoToViewModel(EndViewModel);
     }
 

@@ -17,6 +17,7 @@ public class Player : PropertyNotificator
     public Player(Game game, string name, int money, Tile currentTile)
     {
         Name = name;
+        Id = new Guid();
         Money = money;
         CurrentTile = currentTile;
         TotalRailRoads = 0;
@@ -26,6 +27,7 @@ public class Player : PropertyNotificator
         Streets = new ObservableCollection<Tile>();
     }
 
+    public Guid Id { get; }
     public string Name { get; }
     public Tile CurrentTile { get; set; }
     public Game CurrentGame { get; }

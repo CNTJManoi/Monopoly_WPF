@@ -20,7 +20,12 @@
                Height="675" />
         <Label Content="Сгупспол" HorizontalAlignment="Left" Height="65" Margin="737,-3,0,0" VerticalAlignment="Top"
                Width="211" FontSize="40" FontFamily="Microsoft YaHei" />
-
+        <Button Command="{Binding SaveGameInDatabase, Mode=OneWay}"
+                HorizontalAlignment="Left" Height="42" Margin="699,390,0,0"
+                VerticalAlignment="Top" Width="274" Content="Сохранить в базу данных" />
+        <Button Command="{Binding SaveGameInFile, Mode=OneWay}"
+                HorizontalAlignment="Left" Height="42" Margin="698,343,0,0"
+                VerticalAlignment="Top" Width="274" Content="Сохранить в файл" />
         <Button Command="{Binding ThrowDiceCommand, Mode=OneWay}"
                 ToolTip="{Binding Source={x:Static resources:Language.tooltipdice}}"
                 ToolTipService.ShowOnDisabled="True" ToolTipService.InitialShowDelay="2000"
@@ -43,7 +48,7 @@
                 VerticalAlignment="Top" Width="274"
                 Content="{Binding Source={x:Static resources:Language.managestreets}}" />
 
-        <ListBox HorizontalAlignment="Left" Height="236" Margin="699,197,0,0" VerticalAlignment="Top" Width="274"
+        <ListBox HorizontalAlignment="Left" Height="141" Margin="699,197,0,0" VerticalAlignment="Top" Width="274"
                  ItemsSource="{Binding Path=MyGame.GameInfo, UpdateSourceTrigger=PropertyChanged}"
                  IsHitTestVisible="True" />
         <Rectangle Fill="White" HorizontalAlignment="Left" Height="65" Margin="215,317,0,0" Stroke="Black"

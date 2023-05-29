@@ -9,6 +9,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly.Logic", "Monopoly.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly.Tests", "Monopoly.Tests\Monopoly.Tests.csproj", "{4B04A0C8-2DA7-42EF-8EF0-827371EBC270}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Monopoly.Database", "Monopoly.Database\Monopoly.Database.csproj", "{8C31E601-C304-41A7-AA4D-0E2D43294379}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Monopoly.Json", "Monopoly.Json\Monopoly.Json.csproj", "{596E3ECD-9E35-4449-9DB1-E40630F7E4E6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,14 @@ Global
 		{4B04A0C8-2DA7-42EF-8EF0-827371EBC270}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4B04A0C8-2DA7-42EF-8EF0-827371EBC270}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4B04A0C8-2DA7-42EF-8EF0-827371EBC270}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C31E601-C304-41A7-AA4D-0E2D43294379}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C31E601-C304-41A7-AA4D-0E2D43294379}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C31E601-C304-41A7-AA4D-0E2D43294379}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C31E601-C304-41A7-AA4D-0E2D43294379}.Release|Any CPU.Build.0 = Release|Any CPU
+		{596E3ECD-9E35-4449-9DB1-E40630F7E4E6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{596E3ECD-9E35-4449-9DB1-E40630F7E4E6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{596E3ECD-9E35-4449-9DB1-E40630F7E4E6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{596E3ECD-9E35-4449-9DB1-E40630F7E4E6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
