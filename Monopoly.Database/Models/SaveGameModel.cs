@@ -8,13 +8,11 @@ namespace Monopoly.Database.Models
 {
     public class SaveGameModel
     {
-        public SaveGameModel(Guid id, string jsonSaveGame)
+        public SaveGameModel(string jsonSaveGame)
         {
-            Id = id;
             JsonSaveGame = jsonSaveGame;
         }
-
-        public Guid Id { get; }
+        public int Id { get; set; }
         public string JsonSaveGame { get; }
     }
 }

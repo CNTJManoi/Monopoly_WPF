@@ -8,17 +8,35 @@ namespace Monopoly.Database.Models
 {
     public class Statictics
     {
-        public Statictics(Guid id, TimeSpan timeOfGame, int sumPlayersScore, int countMoves)
+        private Statictics(TimeSpan timeOfGame, int sumPlayersScore, 
+            int countMoves, int scoreOnePlayer, 
+            int scoreTwoPlayer, int scoreThreePlayer, int scoreFourPlayer)
         {
-            Id = id;
             TimeOfGame = timeOfGame;
             SumPlayersScore = sumPlayersScore;
             CountMoves = countMoves;
+            
+            ScoreOnePlayer = scoreOnePlayer;
+            ScoreTwoPlayer = scoreTwoPlayer;
+            ScoreThreePlayer = scoreThreePlayer;
+            ScoreFourPlayer = scoreFourPlayer;
         }
 
-        public Guid Id { get; }
+        public Statictics(List<Models.Player> players, TimeSpan timeOfGame, int sumPlayersScore,
+            int countMoves, int scoreOnePlayer,
+            int scoreTwoPlayer, int scoreThreePlayer, int scoreFourPlayer) : this(timeOfGame, sumPlayersScore, countMoves, scoreOnePlayer, 
+            scoreTwoPlayer, scoreThreePlayer, scoreFourPlayer)
+        {
+            Players = players;
+        }
+        public int Id { get; set; }
         public TimeSpan TimeOfGame { get; }
         public int SumPlayersScore { get; }
         public int CountMoves { get; }
+        public List<Models.Player> Players { get; }
+        public int ScoreOnePlayer { get; }
+        public int ScoreTwoPlayer { get; }
+        public int ScoreThreePlayer { get; }
+        public int ScoreFourPlayer { get; }
     }
 }

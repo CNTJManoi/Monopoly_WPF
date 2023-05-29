@@ -177,7 +177,7 @@ public class GameViewModel : BasicViewModel
         {
             return _saveGameInDatabase ??
                    (_saveGameInDatabase =
-                       new RelayCommand(p => _databaseController.AddSavedGame(JsonConverter<Game>.SerializeObject(MyGame))));
+                       new RelayCommand(p => AddSavedGameToDatabase()));
         }
     }
     private ICommand _saveGameInFile;
@@ -195,6 +195,10 @@ public class GameViewModel : BasicViewModel
 
     #region Command methods
 
+    private async void AddSavedGameToDatabase()
+    {
+        await _databaseController.AddSavedGame(JsonConverter<Game>.SerializeObject(MyGame));
+    }
     private void EndGame()
     {
         GameIsFinished = true;

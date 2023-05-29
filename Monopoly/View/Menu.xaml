@@ -12,6 +12,8 @@
                 VerticalAlignment="Top" Width="157" />
         <Button Content="{Binding Source={x:Static resources:Language.loadgame}}" Command="{Binding OpenFileCommand}"
                 HorizontalAlignment="Left" Height="67" Margin="605,198,0,0" VerticalAlignment="Top" Width="157" />
+        <Button Content="Загрузить с базы данных" Command="{Binding LoadSaveGame}"
+                HorizontalAlignment="Left" Height="67" Margin="605,278,0,0" VerticalAlignment="Top" Width="157" />
         <ComboBox Name="PlayerBox" ItemsSource="{Binding MaxPlayers}" HorizontalAlignment="Left"
                   SelectedValue="{Binding TotalPlayers}" Height="25" Margin="170,168,0,0" VerticalAlignment="Top"
                   Width="42" IsReadOnly="True" />
@@ -22,6 +24,10 @@
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,332,0,0">
             <TextBlock Text="Имя 1 игрока: " />
             <TextBox Width="150" Height="20" Text="{Binding NicknameOnePlayer}" />
+        </StackPanel>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="605,390,0,0" RenderTransformOrigin="0.509,0.611">
+            <TextBlock Text="Id игры: " />
+            <TextBox Width="150" Height="20" Text="{Binding IdGame}" />
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="18,357,0,0">
             <TextBlock Text="Имя 2 игрока: " />

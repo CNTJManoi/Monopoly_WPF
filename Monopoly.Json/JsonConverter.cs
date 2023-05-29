@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
@@ -13,10 +14,18 @@ namespace Monopoly.Json
         {
             var settings = new JsonSerializerSettings
             {
-                TypeNameHandling = TypeNameHandling.Auto,
-                PreserveReferencesHandling = PreserveReferencesHandling.Objects
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
             };
             return JsonConvert.SerializeObject(entity, Formatting.Indented, settings);
+        }
+        public static T? DeserializeObject(string json)
+        {
+            var settings = new JsonSerializerSettings
+            {
+                ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            };
+            var test = JsonConvert.DeserializeObject<T>(json, settings);
+            return test;
         }
     }
 }

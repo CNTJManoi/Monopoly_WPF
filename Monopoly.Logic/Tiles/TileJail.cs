@@ -1,4 +1,5 @@
-﻿using Monopoly.Logic.Properties;
+﻿using System.Text.Json.Serialization;
+using Monopoly.Logic.Properties;
 
 namespace Monopoly.Logic.Tiles;
 
@@ -12,7 +13,11 @@ public class TileJail : Tile
     {
         NextTile = game.JailVisit;
     }
+    [JsonConstructor]
+    private TileJail()
+    {
 
+    }
     public override void DoAction(Player player)
     {
         if (player.JailCounter != 0)

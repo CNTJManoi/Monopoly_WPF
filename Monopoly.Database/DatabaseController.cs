@@ -18,20 +18,29 @@ namespace Monopoly.Database
             _context = new ApplicationContext();
         }
 
-        public async void AddPlayer(Logic.Player player)
+        public async Task AddPlayer(string name)
         {
-            if(!_context.Players.Where(x => x.Name == player.Name).ToList().Any())
-            await _context.Players.AddAsync(new Models.Player(new Guid(), player.Name));
+            var r = _context.Players.ToList();
+            if (!_context.Players.Where(x => x.Name == name).ToList().Any())
+            await _context.Players.AddAsync(new Models.Player( name));
             _context.SaveChanges();
         }
 
-        public async Task<bool> ExistPlayer(Logic.Player player)
+        public async Task<bool> ExistPlayer(string name)
         {
-            return await _context.Players.AnyAsync(x => x.Name == player.Name);
+            return await _context.Players.AnyAsync(x => x.Name == name);
         }
-        public async void AddSavedGame(string json)
+        public async Task<Models.Player> ReturnPlayer(string name)
         {
-            await _context.SavedGames.AddAsync(new SaveGameModel(new Guid(), json));
+            if (await ExistPlayer(name))
+            {
+                return await _context.Players.SingleAsync(x => x.Name == name);
+            }
+            return null;
+        }
+        public async Task AddSavedGame(string json)
+        {
+            await _context.SavedGames.AddAsync(new SaveGameModel(json));
             _context.SaveChanges();
         }
         public void RemoveSavedGame(SaveGameModel saveGame)
@@ -39,7 +48,12 @@ namespace Monopoly.Database
             _context.SavedGames.Remove(saveGame);
             _context.SaveChanges();
         }
-        public async void AddStatictics(Statictics statictics)
+
+        public async Task<SaveGameModel> ReturnSavedGame(int id)
+        {
+            return await _context.SavedGames.SingleAsync(x => x.Id == id);
+        }
+        public async Task AddStatictics(Statictics statictics)
         {
             await _context.Statictics.AddAsync(statictics);
             _context.SaveChanges();

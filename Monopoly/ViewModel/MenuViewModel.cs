@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Input;
@@ -41,6 +42,17 @@ public class MenuViewModel : BasicViewModel
         }
     }
 
+    private ICommand _loadSaveGame;
+
+    public ICommand LoadSaveGame
+    {
+        get
+        {
+            return _loadSaveGame ??
+                   (_loadSaveGame =
+                       new RelayCommand(p => LoadDatabaseGame()));
+        }
+    }
 
     private ICommand _startNewGameCommand;
 
@@ -58,6 +70,29 @@ public class MenuViewModel : BasicViewModel
 
     #region Command methods
 
+    private async void LoadDatabaseGame()
+    {
+        int id = 0;
+        try
+        {
+            id = int.Parse(IdGame);
+        }
+        catch (FormatException e)
+        {
+            Console.WriteLine("Неверный ID");
+            return;
+        }
+        catch (ArgumentNullException e)
+        {
+            Console.WriteLine("Введите ID");
+            return;
+        }
+        var jsonGame = await _databaseController.ReturnSavedGame(id);
+        _game = Monopoly.Json.JsonConverter<Game>.DeserializeObject(jsonGame.JsonSaveGame);
+        var gmv = new GameViewModel(_mainViewModel, _game, _databaseController);
+        _mainViewModel.GoToViewModel(gmv);
+    }
+
     public void StartGame()
     {
         var nickname1 = "";
@@ -65,13 +100,14 @@ public class MenuViewModel : BasicViewModel
         else nickname1 = "Player1";
         var nickname2 = "";
         if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname2 = NicknameTwoPlayer;
-        else nickname1 = "Player2";
+        else nickname2 = "Player2";
         var nickname3 = "";
         if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname3 = NicknameThreePlayer;
-        else nickname1 = "Player3";
+        else nickname3 = "Player3";
         var nickname4 = "";
         if (!string.IsNullOrEmpty(NicknameOnePlayer)) nickname4 = NicknameFourPlayer;
-        else nickname1 = "Player4";
+        else nickname4 = "Player4";
+        DatabaseLoad(nickname1, nickname2, nickname3, nickname4, TotalPlayers);
         _game = new Game(TotalPlayers, nickname1, nickname2, nickname3, nickname4);
         _configFile = new Configuration(_game);
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
@@ -80,6 +116,25 @@ public class MenuViewModel : BasicViewModel
         _mainViewModel.GoToViewModel(gmv);
     }
 
+    private async void DatabaseLoad(string name1, string name2, string name3, string name4, int totalPlayers)
+    {
+        if (!await _databaseController.ExistPlayer(name1))
+        {
+            await _databaseController.AddPlayer(name1);
+        }
+        if (!await _databaseController.ExistPlayer(name2) && totalPlayers > 1)
+        {
+            await _databaseController.AddPlayer(name2);
+        }
+        if (!await _databaseController.ExistPlayer(name3) && totalPlayers > 2)
+        {
+            await _databaseController.AddPlayer(name3);
+        }
+        if (!await _databaseController.ExistPlayer(name4) && totalPlayers > 3)
+        {
+            await _databaseController.AddPlayer(name4);
+        }
+    }
     public bool CanStartGame()
     {
         return TotalPlayers >= 2;
@@ -174,6 +229,20 @@ public class MenuViewModel : BasicViewModel
             if (_nicknameTwoPlayer != value)
             {
                 _nicknameTwoPlayer = value;
+                RaisePropertyChanged("NicknameTwoPlayer");
+            }
+        }
+    }
+    private string _idGame;
+
+    public string IdGame
+    {
+        get => _idGame;
+        set
+        {
+            if (_idGame != value)
+            {
+                _idGame = value;
                 RaisePropertyChanged("NicknameTwoPlayer");
             }
         }

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Monopoly.Database.Models
 {
+    [Index(nameof(Name), IsUnique = true)]
     public class Player
     {
-        public Player(Guid id, string name)
+        public Player(string name)
         {
-            Id = id;
             Name = name;
         }
-
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         public string Name { get; set; }
     }
 }

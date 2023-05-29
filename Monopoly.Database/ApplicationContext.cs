@@ -18,6 +18,11 @@ namespace Monopoly.Database
         public DbSet<SaveGameModel> SavedGames => Set<SaveGameModel>();
         public DbSet<Statictics> Statictics => Set<Statictics>();
 
+        public ApplicationContext()
+        {
+            Database.EnsureCreated();
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             //Пересмотреть
@@ -37,9 +42,15 @@ namespace Monopoly.Database
                 b =>
                 {
                     b.HasKey("Id");
-                    b.Property(e => e.CountMoves);
                     b.Property(e => e.TimeOfGame);
+                    b.Property(e => e.CountMoves);
                     b.Property(e => e.SumPlayersScore);
+                    b.HasMany(e => e.Players).WithMany();
+                    
+                    b.Property(e => e.ScoreOnePlayer);
+                    b.Property(e => e.ScoreTwoPlayer);
+                    b.Property(e => e.ScoreThreePlayer);
+                    b.Property(e => e.ScoreFourPlayer);
                 });
 
         }
@@ -48,7 +59,7 @@ namespace Monopoly.Database
         {
             try
             {
-                optionsBuilder.UseSqlServer("server=localhost;database=MonopolyBase;user=admin;password=admin ");
+                optionsBuilder.UseSqlServer("server=localhost;database=MonopolyBase;Trusted_Connection=True;Encrypt=false");
                 optionsBuilder.LogTo(_logStream.WriteLine);
             }
             catch (Exception e)

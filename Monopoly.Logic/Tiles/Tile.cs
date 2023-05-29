@@ -1,10 +1,17 @@
-﻿namespace Monopoly.Logic.Tiles;
+﻿using System.Text.Json.Serialization;
+
+namespace Monopoly.Logic.Tiles;
 
 /// <summary>
 ///     Базовый класс для определения полей для доски монополии.
 /// </summary>
 public abstract class Tile
 {
+    [JsonConstructor]
+    protected Tile()
+    {
+
+    }
     protected Tile(Game game, string description)
     {
         CurrentGame = game;
