@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Internal;
 using Monopoly.Database.Models;
 using Monopoly.Logic;
+using Player = Monopoly.Database.Models.Player;
 
 namespace Monopoly.Database
 {
@@ -47,7 +48,7 @@ namespace Monopoly.Database
         {
             try
             {
-                optionsBuilder.UseSqlServer("server=localhost;database=Hospital;user=root;password=");
+                optionsBuilder.UseSqlServer("server=localhost;database=MonopolyBase;user=admin;password=admin ");
                 optionsBuilder.LogTo(_logStream.WriteLine);
             }
             catch (Exception e)

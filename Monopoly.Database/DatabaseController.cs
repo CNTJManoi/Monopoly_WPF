@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Monopoly.Database.Models;
 using Monopoly.Logic;
 
@@ -17,11 +18,16 @@ namespace Monopoly.Database
             _context = new ApplicationContext();
         }
 
-        public async void AddPlayer(Player player)
+        public async void AddPlayer(Logic.Player player)
         {
             if(!_context.Players.Where(x => x.Name == player.Name).ToList().Any())
-            await _context.Players.AddAsync(player);
+            await _context.Players.AddAsync(new Models.Player(new Guid(), player.Name));
             _context.SaveChanges();
+        }
+
+        public async Task<bool> ExistPlayer(Logic.Player player)
+        {
+            return await _context.Players.AnyAsync(x => x.Name == player.Name);
         }
         public async void AddSavedGame(string json)
         {
