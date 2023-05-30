@@ -18,14 +18,12 @@ public class MenuViewModel : BasicViewModel
     private readonly MainWindowViewModel _mainViewModel;
     private Configuration _configFile;
     private Game _game;
-    private DatabaseController _databaseController;
 
     public MenuViewModel(MainWindowViewModel model)
     {
         MaxPlayers = new List<int> { 2, 3, 4 };
         Languages = new[] { "Russian" };
         _mainViewModel = model;
-        _databaseController = new DatabaseController();
     }
 
     # region Commands
@@ -87,9 +85,9 @@ public class MenuViewModel : BasicViewModel
             Console.WriteLine("Введите ID");
             return;
         }
-        var jsonGame = await _databaseController.ReturnSavedGame(id);
-        _game = Monopoly.Json.JsonConverter<Game>.DeserializeObject(jsonGame.JsonSaveGame);
-        var gmv = new GameViewModel(_mainViewModel, _game, _databaseController);
+        var jsonGame = await DatabaseController.getInstance().ReturnSavedGame(id);
+        _game = Monopoly.Json.JsonConverter.DeserializeObject(jsonGame.JsonSaveGame);
+        var gmv = new GameViewModel(_mainViewModel, _game, DatabaseController.getInstance());
         _mainViewModel.GoToViewModel(gmv);
     }
 
@@ -112,27 +110,27 @@ public class MenuViewModel : BasicViewModel
         _configFile = new Configuration(_game);
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
         _game.GetCards(cards);
-        var gmv = new GameViewModel(_mainViewModel, _game, _databaseController);
+        var gmv = new GameViewModel(_mainViewModel, _game, DatabaseController.getInstance());
         _mainViewModel.GoToViewModel(gmv);
     }
 
     private async void DatabaseLoad(string name1, string name2, string name3, string name4, int totalPlayers)
     {
-        if (!await _databaseController.ExistPlayer(name1))
+        if (!await DatabaseController.getInstance().ExistPlayer(name1))
         {
-            await _databaseController.AddPlayer(name1);
+            await DatabaseController.getInstance().AddPlayer(name1);
         }
-        if (!await _databaseController.ExistPlayer(name2) && totalPlayers > 1)
+        if (!await DatabaseController.getInstance().ExistPlayer(name2) && totalPlayers > 1)
         {
-            await _databaseController.AddPlayer(name2);
+            await DatabaseController.getInstance().AddPlayer(name2);
         }
-        if (!await _databaseController.ExistPlayer(name3) && totalPlayers > 2)
+        if (!await DatabaseController.getInstance().ExistPlayer(name3) && totalPlayers > 2)
         {
-            await _databaseController.AddPlayer(name3);
+            await DatabaseController.getInstance().AddPlayer(name3);
         }
-        if (!await _databaseController.ExistPlayer(name4) && totalPlayers > 3)
+        if (!await DatabaseController.getInstance().ExistPlayer(name4) && totalPlayers > 3)
         {
-            await _databaseController.AddPlayer(name4);
+            await DatabaseController.getInstance().AddPlayer(name4);
         }
     }
     public bool CanStartGame()
@@ -149,7 +147,7 @@ public class MenuViewModel : BasicViewModel
             _configFile = new Configuration(_game);
             var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
             _game.GetCards(cards);
-            var gmv = new GameViewModel(_mainViewModel, _game, _databaseController);
+            var gmv = new GameViewModel(_mainViewModel, _game, DatabaseController.getInstance());
             _mainViewModel.GoToViewModel(gmv);
         }
     }

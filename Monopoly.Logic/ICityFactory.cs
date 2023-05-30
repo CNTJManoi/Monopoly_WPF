@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Monopoly.Logic.Tiles;
 
-namespace Monopoly.Data
+namespace Monopoly.Logic
 {
-    internal class JsonConverter
+    public interface ICityFactory
     {
-
+        City CreateCity();
     }
 }

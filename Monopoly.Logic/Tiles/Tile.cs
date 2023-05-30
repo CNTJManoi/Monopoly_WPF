@@ -7,11 +7,6 @@ namespace Monopoly.Logic.Tiles;
 /// </summary>
 public abstract class Tile
 {
-    [JsonConstructor]
-    protected Tile()
-    {
-
-    }
     protected Tile(Game game, string description)
     {
         CurrentGame = game;

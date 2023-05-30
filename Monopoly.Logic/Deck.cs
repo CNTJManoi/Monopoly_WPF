@@ -29,8 +29,6 @@ public class Deck
         }
     }
 
-    // todo: реализация колоды через стек кажется более логичной. Тогда не пришлось бы следить за переменной _top
-
     public Card Peek()
     {
         return !IsEmpty() ? Cards[_top] : null;

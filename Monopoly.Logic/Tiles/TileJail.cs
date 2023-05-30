@@ -8,15 +8,12 @@ namespace Monopoly.Logic.Tiles;
 /// </summary>
 public class TileJail : Tile
 {
+    public Game game { get; }
     public TileJail(Game game, string description)
         : base(game, description)
     {
-        NextTile = game.JailVisit;
-    }
-    [JsonConstructor]
-    private TileJail()
-    {
-
+        this.game = game;
+        NextTile = this.game.JailVisit;
     }
     public override void DoAction(Player player)
     {

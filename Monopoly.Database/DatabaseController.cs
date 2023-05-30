@@ -12,10 +12,18 @@ namespace Monopoly.Database
     public class DatabaseController
     {
         private ApplicationContext _context;
+        private static DatabaseController instance;
 
-        public DatabaseController()
+        private DatabaseController()
         {
             _context = new ApplicationContext();
+        }   
+
+        public static DatabaseController getInstance()
+        {
+            if (instance == null)
+                instance = new DatabaseController();
+            return instance;
         }
 
         public async Task AddPlayer(string name)

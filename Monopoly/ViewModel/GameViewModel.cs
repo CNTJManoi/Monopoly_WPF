@@ -9,6 +9,7 @@ using Monopoly.Database;
 using Monopoly.Json;
 using Monopoly.Logic;
 using Monopoly.Logic.Tiles;
+using JsonConverter = Monopoly.Json.JsonConverter;
 
 namespace Monopoly.ViewModel;
 
@@ -197,7 +198,8 @@ public class GameViewModel : BasicViewModel
 
     private async void AddSavedGameToDatabase()
     {
-        await _databaseController.AddSavedGame(JsonConverter<Game>.SerializeObject(MyGame));
+        string json = Monopoly.Json.JsonConverter.SerializeObject(MyGame);
+        await _databaseController.AddSavedGame(json);
     }
     private void EndGame()
     {

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Monopoly.Logic
 {
-    public class PropertyNotificator : INotifyPropertyChanged
+    public abstract class PropertyNotificator : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

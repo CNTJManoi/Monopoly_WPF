@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Text.Json.Serialization;
 using Monopoly.Logic.Cards;
 using Monopoly.Logic.Models;
 using Monopoly.Logic.Properties;
@@ -38,6 +39,7 @@ public class Game : PropertyNotificator
     ///     Конструктор для создания новой игры
     /// </summary>
     /// <param name="totalPlayers"></param>
+    [JsonConstructor]
     public Game(int totalPlayers, string name1 = "Player1",
         string name2 = "Player2", string name3 = "Player3", string name4 = "Player4")
         : this()
@@ -49,7 +51,6 @@ public class Game : PropertyNotificator
     {
         InitSavedGame(saveFile);
     }
-
     public ObservableCollection<Player> Players { get; private set; }
     
     public Deck ChanceCards { get; private set; }
@@ -99,7 +100,7 @@ public class Game : PropertyNotificator
     public void InitNewGame(int maxplayers, string name1 = "Player1",
         string name2 = "Player2", string name3 = "Player3", string name4 = "Player4")
     {
-        Board = _currentConfigFile.LoadDefauldBoard();
+        Board = _currentConfigFile.LoadDefaultBoard();
 
         Players = new ObservableCollection<Player>();
         Players.Add(new Player(this, name1, 1500, Start));
@@ -120,9 +121,7 @@ public class Game : PropertyNotificator
     /// <param name="savedGame"></param>
     public void InitSavedGame(string savedGame)
     {
-        // todo: дублирование с 99 и 100 строками. Возможно следовало бы добавить метод добавить игрока,
-        // и создавать игроков вне данного класса. ТОгда инициализация игры была бы одинаковой для обоих случаев
-        Board = _currentConfigFile.LoadDefauldBoard();
+        Board = _currentConfigFile.LoadDefaultBoard();
         LoadPlayers(_currentConfigFile.GetAllPlayers(savedGame));
     }
 
@@ -162,9 +161,6 @@ public class Game : PropertyNotificator
             CurrentPlayer.MoveTo(CurrentPlayer.DiceEyes);
         }
     }
-
-    // todo: тут и дублирование и метод, вроде бы нужный для тестирования
-    // в этом случае более подходящим было бы создание наследника с переопределением предыдущего метода
     public void ThrowDiceAndMovePlayer(int value)
     {
         CurrentPlayer.DiceEyes = value;
