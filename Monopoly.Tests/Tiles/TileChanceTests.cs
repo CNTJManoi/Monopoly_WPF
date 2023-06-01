@@ -15,6 +15,7 @@ public class TileChanceTests
         game.InitNewGame(2);
         var player = game.Players[0];
         Configuration _configFile = new Configuration(game);
+        _configFile.LoadDefaultBoard();
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
         game.GetCards(cards);
         player.MoveTo(7);
@@ -34,6 +35,7 @@ public class TileChanceTests
         var game = new Game(2);
         game.InitNewGame(2);
         Configuration _configFile = new Configuration(game);
+        _configFile.LoadDefaultBoard();
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
         game.GetCards(cards);
         var player = game.Players[0];

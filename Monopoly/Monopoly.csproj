@@ -45,7 +45,9 @@
     <Resource Include="Data\Images\Board.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Data\Board\Board_Normal.txt" />
+    <Resource Include="Data\Board\Board_Normal.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Data\Images\Icon.jpg" />
@@ -116,6 +118,9 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Update="Data\Config\CardDescriptions-ru-RU.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

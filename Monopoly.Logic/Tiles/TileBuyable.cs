@@ -5,7 +5,7 @@ namespace Monopoly.Logic.Tiles;
 /// <summary>
 ///     Поле которое может купить игрок
 /// </summary>
-public abstract class TileBuyable : Tile, IBuyable
+public abstract class TileBuyable : Tile
 {
     protected TileBuyable(Game game, string description, int[] rent, int mortage, int price)
         : base(game, description)

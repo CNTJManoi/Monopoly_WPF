@@ -170,6 +170,7 @@ public class PlayerTests
         // Arrange
         var g = new Game(2);
         g.InitNewGame(2);
+        g.Configuration.LoadDefaultBoard();
         var player = new Player(g, "Player  1", 1500, g.Board.GetAt(5));
         var railRoad = (TileRailRoad)g.Board.GetAt(5);
         railRoad.HasOwner = false;
@@ -188,6 +189,7 @@ public class PlayerTests
         // Arrange
         var g = new Game(2);
         g.InitNewGame(2);
+        g.Configuration.LoadDefaultBoard();
         var player1 = new Player(g, "Player  1", 1500, g.Board.GetAt(1));
         var player2 = new Player(g, "Player  2", 1500, g.Board.GetAt(1));
         var street = (TileBuyable)g.Board.GetAt(1);

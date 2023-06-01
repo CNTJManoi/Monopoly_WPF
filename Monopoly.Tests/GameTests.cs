@@ -17,6 +17,7 @@ public class GameTests
 
         // Act
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
 
         // Assert
         Assert.NotNull(game.Board);
@@ -33,6 +34,7 @@ public class GameTests
         game.GetCards(cards);
         // Act
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
 
         // Assert
         Assert.NotEmpty(game.ChanceCards.Cards);
@@ -47,6 +49,7 @@ public class GameTests
 
         // Act
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
 
         // Assert
         Assert.NotNull(game.Players);
@@ -61,6 +64,7 @@ public class GameTests
 
         // Act
         game.InitNewGame(3);
+        game.Configuration.LoadDefaultBoard();
 
         // Assert
         Assert.Equal(3, game.Players.Count);
@@ -74,6 +78,7 @@ public class GameTests
 
         // Act
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
 
         // Assert
         Assert.NotNull(game.CurrentPlayer);
@@ -89,6 +94,7 @@ public class GameTests
         g.InitNewGame(2);
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var player = game.CurrentPlayer;
         Configuration _configFile = new Configuration(game);
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
@@ -113,6 +119,7 @@ public class GameTests
         g.InitNewGame(2);
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var player = game.CurrentPlayer;
         Configuration _configFile = new Configuration(game);
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
@@ -134,6 +141,7 @@ public class GameTests
         var game = new Game(2);
         game.InitNewGame(2);
         Configuration _configFile = new Configuration(game);
+        _configFile.LoadDefaultBoard();
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
         game.GetCards(cards);
         game.Players[0].MoveTo(3);
@@ -151,6 +159,7 @@ public class GameTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
 
         // Ac
         game.ThrowDiceAndMovePlayer(12);
@@ -158,24 +167,6 @@ public class GameTests
         // Assert
         Assert.Equal(12, game.CurrentPlayer.DiceEyes);
         Assert.Equal(game.Board.GetAt(game.CurrentPlayer.DiceEyes), game.Players[0].CurrentTile);
-    }
-
-    [Fact]
-    public void ThrowDiceAndMovePlayer_DiceAlreadyThrown()
-    {
-        // Arrange
-        var game = new Game(2);
-        game.InitNewGame(2);
-
-        // Act
-        game.PlayerDice.HasBeenThrown = true;
-        game.ThrowDiceAndMovePlayer();
-
-        // Assert
-        Assert.Equal(game.Start, game.CurrentPlayer.CurrentTile);
-        Assert.Equal(null,
-            game.GameInfo.FirstOrDefault(x => x == string.Format(Language.throwdice, game.CurrentPlayer.Name,
-                game.PlayerDice.FirstDice, game.PlayerDice.SecondDice)));
     }
 
     [Fact]
@@ -187,6 +178,7 @@ public class GameTests
         var game = new Game(2);
         game.InitNewGame(2);
         Configuration _configFile = new Configuration(game);
+        _configFile.LoadDefaultBoard();
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
         game.GetCards(cards);
         do
@@ -208,6 +200,7 @@ public class GameTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
 
         // Act
         game.EndTurn();

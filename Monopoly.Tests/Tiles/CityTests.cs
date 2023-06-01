@@ -12,6 +12,7 @@ public class CityTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var t1 = (TileProperty)game.Board.GetAt(1);
         var t2 = (TileProperty)game.Board.GetAt(3);
         var player = game.Players[0];
@@ -29,6 +30,7 @@ public class CityTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var t1 = (TileProperty)game.Board.GetAt(1);
         var t2 = (TileProperty)game.Board.GetAt(3);
         var player1 = game.Players[0];
@@ -51,6 +53,7 @@ public class CityTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var t1 = (TileProperty)game.Board.GetAt(1);
         var t2 = (TileProperty)game.Board.GetAt(3);
         var player1 = game.Players[0];
@@ -72,6 +75,7 @@ public class CityTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var t1 = (TileProperty)game.Board.GetAt(6);
         var t2 = (TileProperty)game.Board.GetAt(8);
         var t3 = (TileProperty)game.Board.GetAt(9);
@@ -97,6 +101,7 @@ public class CityTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var t1 = (TileProperty)game.Board.GetAt(6);
         var t2 = (TileProperty)game.Board.GetAt(8);
         var t3 = (TileProperty)game.Board.GetAt(9);

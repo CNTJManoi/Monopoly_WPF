@@ -12,6 +12,7 @@ public class DeckTests
     {
         var g = new Game(2);
         _configuration = new Configuration(g);
+        g.Configuration.LoadDefaultBoard();
     }
 
     [Fact]
@@ -98,12 +99,18 @@ public class DeckTests
         var cards = _configuration.GetAllCards(@"Config\CardDescriptions").ToList();
         var deck = new Deck(cards);
         var card1 = cards[0];
+        var card2 = cards[1];
+        var card3 = cards[2];
+        cards = deck.Cards.ToList();
 
         // Act
         deck.Shuffle();
-        deck.Shuffle();
+        bool shuulfeResult = card1 != cards[0] || card2 != cards[1] || card3 != cards[2];
 
         // Assert
-        Assert.NotEqual(card1, deck.Peek());
+        Assert.Contains(card1, cards);
+        Assert.Contains(card2, cards);
+        Assert.Contains(card3, cards);
+        Assert.True(shuulfeResult);
     }
 }

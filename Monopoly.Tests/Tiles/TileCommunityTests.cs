@@ -13,6 +13,7 @@ public class TileCommunityTests
         // Arrange
         var game = new Game(2);
         game.InitNewGame(2);
+        game.Configuration.LoadDefaultBoard();
         var player = game.Players[0];
         Configuration _configFile = new Configuration(game);
         var cards = _configFile.GetAllCards(@"Config\CardDescriptions").ToList();
